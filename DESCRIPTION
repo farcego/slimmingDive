@@ -1,6 +1,7 @@
 Package: slimmingDive
-Title: Scripts Collection to Calculate Drift Rate from Southern Elephant Seals
-Version: 0.1.0
+Type: Package
+Title: Flexible, Hierarchical Selection of Drift Dives
+Version: 0.1.0.0001
 Authors@R: person("Fernando", "Arce", email = "fernando.arcegonzalez@utas.edu.au",
 	   role = c("aut", "cre"))
 	   person("Sophie", "Bestley", email = "sophie.bestley@utas.edu.au",
@@ -16,7 +17,8 @@ Author: Fer Arce [aut, cre]
 Maintainer: Fer Arce <fernando.arcegonzalez@utas.edu.au>
 Depends: R (>= 3.3.0)
 Imports: rjags
-License: MIT + file LICENSE
+License: GLP2
+SystemRequirements: JAGS (>= 4.2.0) 
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
