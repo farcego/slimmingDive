@@ -1,0 +1,5 @@
+importFrom("graphics", "abline", "clip", "hist", "layout", "plot",
+             "points", "text", "par")
+importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var")
+importFrom("utils", "read.csv")
+exportPattern("^[^\\.]")

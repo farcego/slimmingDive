@@ -1,0 +1,17 @@
+Package: slimmingDive
+Title: Scripts Collection to Calculate Drift Rate from Southern Elephant Seals
+Version: 0.1.0
+Authors@R: person("Fer", "Arce", email = "fernando.arcegonzalez@utas.edu.au", role = c("aut", "cre"))
+Description: Handy functions to work with summarized dives profiles by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. If you have other source of data feel free to contact.
+Author: Fer Arce [aut, cre]
+Maintainer: Fer Arce <fernando.arcegonzalez@utas.edu.au>
+Depends: R (>= 3.3.0)
+Imports: rjags
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
