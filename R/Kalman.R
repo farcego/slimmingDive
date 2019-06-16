@@ -72,7 +72,7 @@ model {
     res <- list(Data = Data, model = model, kalman = s,
                 mns = mns, duration = duration, burn.in = update )
     
-    cat('\n\n\n','time duration : ', duration, '\n\n\n')
+    ## cat('\n\n\n','time duration : ', duration, '\n\n\n')
     return(res)
     
 }

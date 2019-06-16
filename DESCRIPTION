@@ -11,10 +11,10 @@ Authors@R: person("Fernando", "Arce", email = "fernando.arcegonzalez@utas.edu.au
     	   person("Mark", "hindell",  email = "mark.hindell@utas.edu.au",
     	   role = "ctb"),
     	   person("Simon", "Wotherspoon", email = "simon.wotherspoon@utas.edu.au",
-    	   role = c("aut","ctb")
-Description: Handy functions to work with summarized dives profiles by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by The Integrated Marine Observing System (IMOS)If you have other source of data feel free to contact.
+    	   role = c("aut")
+Description: slimingDive contains a set of function for detect and filter drift dives from dive profiles summarized by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by If you have other source of data feel free to contact.Example data has kindly provided by the Integrated Marine Observing System (IMOS)
 Author: Fer Arce [aut, cre]
-	Simon Wotherspoon [aut, cre]
+	Simon Wotherspoon [aut]
 Maintainer: Fer Arce <fernando.arcegonzalez@utas.edu.au>
 Depends: R (>= 3.3.0)
 Imports: rjags
