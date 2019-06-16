@@ -82,43 +82,10 @@ NewVarsVect <- function(Data = Data, t = FALSE){
 
     Data$max.time <- apply(Data,1,maxTimes)
 
-    ## pase lo que pase esto lo voy a acabar elimnando
-    ## Data$avratio <-  numeric(dim(Data)[1])
-    ## Data$Sa <- (Data$max.depth/Data$max.time)
-    ## Data$Sb <- (Data$max.depth/(Data$DIVE_DUR-Data$max.time))
-    ## for (i in 1:dim(Data)[1]){
-    ##     if (Data$Sa[i] > Data$Sb[i]){
-    ##         Data$avratio[i]=Data$Sa[i]/Data$Sb[i] - 1
-    ##     } else if (Data$Sa[i]<Data$Sb[i]){
-    ##         Data$avratio[i]=(-(Data$Sb[i]/Data$Sa[i])) + 1
-    ##     } else {
-    ##         Data$avratio[i]=1
-    ##     }
-    ## }
-    
+   
 
     Data$avratio <- numeric(nrow(Data))
     Data$avratio <- apply(Data,1,AvRatio)
-    ## ahora a hacer un loop con avratio
-    
-    ## de momento lo retiro para ver si es mas rapido
-    ## Data$modres1 <- numeric(nrow(Data))
-    ## Data$modres2 <- numeric(nrow(Data))
-    ## Data$modres3 <- numeric(nrow(Data))
-    ## Data$modres4 <- numeric(nrow(Data))
-    ## for (i in 1:nrow(Data)){
-    ##     tmp.dive <- Data[i,]
-    ##     infl.depths <- c(tmp.dive$D1,tmp.dive$D2,tmp.dive$D3,tmp.dive$D4)
-    ##     infl.times <- c(tmp.dive$T1,tmp.dive$T2,tmp.dive$T3,tmp.dive$T4)
-    ##     tmp.model <- lm(infl.depths~infl.times)
-    ##     ## max infl.depths have been already estimated, so I do not need to
-    ##     ## estimate here!!
-    ##     ## care with the model
-    ##     Data$modres1[i] <- as.numeric(tmp.model$residual[1])
-    ##     Data$modres2[i] <- as.numeric(tmp.model$residual[2])
-    ##     Data$modres3[i] <- as.numeric(tmp.model$residual[3])
-    ##     Data$modres4[i] <- as.numeric(tmp.model$residual[4])
-    ## }
 
 
     Data$mdr <- numeric(nrow(Data))
@@ -213,13 +180,13 @@ AvRatio <- function(x){
 
 ## function for generating the residuals of a fitted linear model to the BSM points
 ##'
-##' This functions generates the residuals of a fitted linear model by fitting the depth points (D1..D4) vs the time points (T1..T4). While the dimension may not be of importance, the sign of the residuals may be for some criteria. It only returns the residual values, not the full object of class 'lm'.
+##' ModRes generates the residuals of a linear model by fitting the depth points (D1..D4) vs the time points (T1..T4). While the dimension may not be of importance, the sign of the residuals may be for some criteria. It only returns the residual values, not the full object of class 'lm'.
 ##' @title Least square residuals
 ##' @param x a summarized dive
 ##' @param res  wich residual is requested \cr
 ##' \itemize{
 ##' \item If {1,2,3,4} it will return the residual for the {1,2,3,4} inflection points
-##' \item {5} all residuals pasted into a string separated by whitespaces
+##' \item {5} all residuals pasted into a string separated by dots
 ##' }
 ##' @return A numeric value if a single residual is requested, or a character string if all are requested
 ##' @author Fernando Arce
@@ -238,6 +205,6 @@ ModRes <- function(x,res=5){
     } else if (res == 4){
         return(a.n(tmp.mod$residual[4]))
     } else if (res == 5){
-        paste(a.n(tmp.mod$residuals),collapse=' ')
+        paste(a.n(tmp.mod$residuals),collapse='.')
     }
 }
