@@ -214,5 +214,7 @@ FinalFilter <- function(fo){
                 fo$t1 < 9, ]
     final <- rbind(Sel1,Sel11,Sel2,Sel22,Sel3,Sel33,Sel4,
                    Sel44,Sel5,Sel55,Sel6,Sel7,Sel77,Sel8,Sel88)
+    final <- final[complete.cases(final), ]
+
     return(final)
 }
