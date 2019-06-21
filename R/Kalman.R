@@ -1,7 +1,9 @@
 
-##' Function for applying a kalman filter to a subset of potential drift dives, accordingly with the estimated drift rate.
+##' Function for running a kalman filter to a subset of potential drift dives.
 ##'
-##' yes, it needs to be longer
+##' This functions is a wrap to a kalman filter implemented in jags (Just another Gibs sampler).
+##' It is particularly slow as it will require long chains. Current set up is a burn in of 400.000 iterations.
+##' There is a version that can paralelize the chains and take advantage of multicore processors
 ##' @title Function for applying a Kalman filter to the drift dives
 ##' @param Data An object of class 'data.frame' that needs to include at least date and drift rate
 ##' @param update Burn.in length.
@@ -10,8 +12,6 @@
 ##' @param n.adapt adaption length (for jags performance)
 ##' @param list Logical, if the object is a list or not
 ##' @return an object of class 'list' that includes: 1) the original dataset (plus some remaping of variables), the model (a jags object), the output etc...
-##' @author Fernando Arce
-##' @author Simon Wotherspoon
 Kalman <- function(Data, update=100000, n.iter=1000, n.chains=3, n.adapt=500, list=FALSE){
     if (list){ Data <- Data[[1]] }
     Data <- Data[order(Data$Date),]
