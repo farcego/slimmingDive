@@ -14,7 +14,7 @@ the seals drifts passively along the water colum. As elephant seals
 exhales before diving, and are deep divers, the drift rate is
 determined primarily the buoyancy of the seal, offering a efective
 measure for tracking changes on the body condition of the
-seals. slimmingDive implements the procedure reported in Arce et
+seals. slimmingDive implements the method reported in Arce et
 al. (2019). It requires jags (Just another Gibs sampler) to be
 intalled in order to work.
 
