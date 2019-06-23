@@ -1,6 +1,6 @@
 # slimmingDive
 
-[![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)]
+![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
 This package process diving data of elephant seals summarized by a
