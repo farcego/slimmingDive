@@ -1,5 +1,8 @@
 importFrom("graphics", "abline", "clip", "hist", "layout", "plot",
-             "points", "text", "par")
+             "points", "text", "par","axis", "mtext", "rect")
 importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var", "complete.cases")
 importFrom("utils", "read.csv")
+importFrom("grDevices", "adjustcolor")
 exportPattern("^[^\\.]")
+
+
