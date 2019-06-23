@@ -18,7 +18,7 @@ track the buoyancy of the seal (and its changes)
 # Installation
 
 
-You need `remotes`  (or `devtools`) to install slimmingDive
+You need package `remotes` to install slimmingDive
 directly from R as it is not (yet) in CRAN
 
 ```R
@@ -26,12 +26,15 @@ directly from R as it is not (yet) in CRAN
 remotes::install_github("farcego/slimingDive")
 ```
 
-or 
-
-```r
-## install.packages('devtools')
-devtools::install_github("farcego/slimmingDive")
-```
-
 Alternatively, you can download this git repo to your machine and
 install it using your prefered procedures
+
+# JAGS installation:
+
+follow this link: http://mcmc-jags.sourceforge.net/
+
+
+# Citation:
+
+Arce, F., Bestley, S., Hindell, M. A., McMahon, C. R. & Wotherspoon,
+S. 2019. A quantitative, hierarchical approach for detecting drift dives and tracking buoyancy changes in southern elephant seals. Sci. Rep. 9, 8936.
