@@ -5,8 +5,8 @@
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
-slimmingDive provides a set of funtions to process dive profiles from
-elephant seals, summarized by a broken-stick algorithm and transmitted
+**slimmingDive** provides a set of funtions to process dive profiles from
+elephant seals (*Mirounga leonina*), summarized by a broken-stick algorithm and transmitted
 through the Argos satellite system. It has been developed to detect
 drift dives and associated drift rates. Drift dives are a particular
 type of dives that contain a long, inactive phase in which the seals
