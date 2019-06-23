@@ -6,14 +6,14 @@
 ##' It should take any color in any format supported by R
 ##' @title BGC: back-ground-color
 ##' @param col name of the color  in any format supported by R. 
-##' @param Alpha numeric, from 0 to 1. It sets the transparency of the color
+##' @param col.tran numeric, from 0 to 1. It sets the transparency of the color
 ##' @return nothng, just paint the background
-BGC <- function(col = 'bisque', Alpha = 1){
+BGC <- function(col = 'bisque', col.tran = 1){
     rect(par('usr')[[1]],
          par('usr')[[3]],
          par('usr')[[2]],
          par('usr')[[4]],
-         col = adjustcolor(col, alpha = Alpha))
+         col = adjustcolor(col, alpha = col.tran))
     abline(h = c(-.2,0,.2), lty = c(2,1,2), lwd = 2,  col = 'white')
 }
 
@@ -22,8 +22,9 @@ BGC <- function(col = 'bisque', Alpha = 1){
 ##'
 ##' This function wraps some code to make nice looking plots for the vignette.
 ##' @title plotDrift
-##' @param Data 
+##' @param Data a seal dataset in data.frame format
 ##' @param ID logical. If true it will print some axis and the tag id on the plot 
+##' @param ... aditional arguments to be pasted to the  generic plot function
 ##' @return 
 ##' @author Fer Arce
 plotDrift <- function(Data, ID = FALSE, ...){
