@@ -4,10 +4,55 @@
 ##'
 ##' @format A data frame with 53940 rows and 10 variables:
 ##' \describe{
-##'   \item{ref}{id of the tag}
-##'   \item{DE_DATE}{Date of each dive}
-##'   \item{SURF_DUR}{Duration of the surface post-dive period}
+##'   \item{BOTTOM}{bathymetry}
+##'   \item{CNT}{CNT}
+##'   \item{D1}{D1}
+##'   \item{D2}{D2}
+##'   \item{D3}{D3}
+##'   \item{D4}{D4}
+##'   \item{D5}{D5}
+##'   \item{D6}{D6}
+##'   \item{D7}{D7}
+##'   \item{D8}{D8}
+##'   \item{D9}{D9}
+##'   \item{T1}{T1}
+##'   \item{T2}{T2}
+##'   \item{T3}{T3}
+##'   \item{T4}{T4}
+##'   \item{T5}{T5}
+##'   \item{T6}{T6}
+##'   \item{T7}{T7}
+##'   \item{T8}{T8}
+##'   \item{T9}{T9}
+##'   \item{DEPTH_STR}{DEPTH_STR}
+##'   \item{DE_DATE}{DE_DATE}
+##'   \item{DIVE_DUR}{DIVE_DUR}
+##'   \item{D_SPEED}{D_SPEED}
+##'   \item{GRP_NUMBER}{GRP_NUMBER}
+##'   \item{HOMEDIST}{HOMEDIST}
+##'   \item{MAX_DEP}{MAX_DEP}
+##'   \item{N_DEPTHS}{N_DEPTHS}
+##'   \item{N_SPEEDS}{N_SPEEDS}
+##'   \item{PERCENT_AREA}{PERCENT_AREA}
+##'   \item{PROPN_STR}{PROPN_STR}
+##'   \item{PTT}{PTT}
+##'   \item{RESIDUAL}{RESIDUAL}
+##'   \item{SPEED_STR}{SPEED_STR}
+##'   \item{SURF_DUR}{SURF_DUR}
+##'   \item{TRAVEL_R}{TRAVEL_R}
+##'   \item{V1}{V1}
+##'   \item{V2}{V2}
+##'   \item{V3}{V3}
+##'   \item{V4}{V4}
+##'   \item{V5}{V5}
+##'   \item{ds_date}{ds_date}
+##'   \item{lat}{lat}
+##'   \item{lon}{lon}
+##'   \item{qc}{qc}
+##'   \item{ref}{ref}
+##'   \item{start_lat}{start_lat}
+##'   \item{start_lon}{start_lon}
 ##' ...
 ##' }
-##' @source \url{http:utas.edu.au}
+##' @source \url{http:www.imos.org.au}
 "ele"

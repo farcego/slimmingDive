@@ -17,49 +17,50 @@ knitr::opts_chunk$set(
 ```
 
 
-This is a minimal example to introduce the usage of slimmingDive with
+This is a minimal example to introduce the usage of **slimmingDive** with
 southern elephant seals dive information kindly provided by the
 Australian Integrated Marine Observing System (IMOS). It requires the external software JAGS (Just another Gibs
 sampler) to be installed or slimmingDive will fail to install.
 
-slimmingDive is not on cran, so oyou need to download and install it
-locally. You can also use either `remotes` or `devtools` packages
+slimmingDive is not on cran, so you need to download and install it
+locally. You can also use either `remotes` or `devtools` packages. If
+you are reading this vignette, it means that you have installed
+**slimmingDive** already :).
 
 
 
-We load the data and see what's on it:
+Load the data:
 ```{r }
 library(slimmingDive)
 
 data(ele)
-dim(ele)
 ```
-it contains a large number of columns, innecesary to our purposes, so
-we preprocess the data. This step is important as it will rename and
-create few extra variables needed for further processing.
+
+These type of datasets tipically contain a large number of columns,
+innecesary to our purposes, so better to pre-process the data. This
+step is important as it will rename and create few extra variables
+needed for further steps. It also removes short, shallower dives.
 
 ```{r }
-
 Data <- formatDives(ele)
 
 dim(Data)
-str(Data)
 ```
 
 Next step is to otain the order in which the inflection points are
-generated. As the Drifing segment and drift rate depends on them
+generated, as the Drifing segment and drift rate depends on them
 
 ```{r }
 
 Data[c('order','minresid')] <- t(apply(Data,1,RBSM,retrieve='both'))
 Data$minresid <- as.numeric(Data$minresid)
 ```
-Next step is to generate a large bunch of variables for filtering purposes.
+Now we can  generate a large bunch of variables for filtering purposes.
 
 ```{r }
 D1 <- NewVarsVect(Data)
 ```
-And the Drift rate and drifting segment
+And get the Drift rate estimate and drifting segment:
 
 ```{r }
 D1[c('NDE','ds')] <- t(apply(D1,1,NDE, extract='both'))
@@ -81,8 +82,7 @@ dives:
 
 ```{r }
 D1 <- driftFilter(D1)
-
-
+## let's have a quick look
 plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
 
@@ -90,17 +90,17 @@ plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 ```
 
 A pattern aroses, but a last step is required to filter the
-unrealistic values still retaining by the filtering process. Because
-it is time consuming, we can load data as if just kalmaned
+unrealistic values still retained by the filtering process. Because
+it is time consuming, we can load the same seal processed. The data
+cames in a complex format, but we can just get what we want easily:
 
 ```{r }
 data(eleK)
 
-
+## collect data
 D2 <- PostKalman(eleK)
+## select the Drift dives
 D2 <- D2[D2$zetas > .99, ]
-
-
 
 plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
