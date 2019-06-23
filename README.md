@@ -5,10 +5,11 @@
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
-slimmingDive provides a set of cuntions to process summarized dive
-profiles form elephant seals for selecting and estimating the drift
-rate, accordingly with Arce et al. (2019). It filter the data in three
-steps to select Drift dives. Drift dives are a particular types of
+slimmingDive provides a set of funtions to process dive
+profiles from elephant seals summarized by a brocken-stick algorithme
+for getting drift dives and drifting rates assotiated to these dives,
+accordingly with Arce et al. (2019) proposal. It filter the data in three
+steps. Drift dives are a particular types of
 dives that contains a long, inactive phase in which the seals drifts
 passively long the water colum. If these inactive phases are
 identified, then we can track the buoyancy of the seal (and its
