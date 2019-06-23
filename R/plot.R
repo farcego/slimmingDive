@@ -6,14 +6,14 @@
 ##' It should take any color in any format supported by R
 ##' @title BGC: back-ground-color
 ##' @param col name of the color  in any format supported by R. 
-##' @param alpha numeric, from 0 to 1. It sets the transparency of the color
+##' @param Alpha numeric, from 0 to 1. It sets the transparency of the color
 ##' @return nothng, just paint the background
-BGC <- function(col = 'bisque', alpha = 1){
+BGC <- function(col = 'bisque', Alpha = 1){
     rect(par('usr')[[1]],
          par('usr')[[3]],
          par('usr')[[2]],
          par('usr')[[4]],
-         col = adjustcolor(col, alpha = alpha))
+         col = adjustcolor(col, alpha = Alpha))
     abline(h = c(-.2,0,.2), lty = c(2,1,2), lwd = 2,  col = 'white')
 }
 
