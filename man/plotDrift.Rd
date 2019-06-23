@@ -7,9 +7,11 @@
 plotDrift(Data, ID = FALSE, ...)
 }
 \arguments{
-\item{Data}{}
+\item{Data}{a seal dataset in data.frame format}
 
 \item{ID}{logical. If true it will print some axis and the tag id on the plot}
+
+\item{...}{aditional arguments to be pasted to the  generic plot function}
 }
 \description{
 Function for making the vignette plot

@@ -4,12 +4,12 @@
 \alias{BGC}
 \title{BGC: back-ground-color}
 \usage{
-BGC(col = "bisque", alpha = 1)
+BGC(col = "bisque", col.tran = 1)
 }
 \arguments{
 \item{col}{name of the color  in any format supported by R.}
 
-\item{alpha}{numeric, from 0 to 1. It sets the transparency of the color}
+\item{col.tran}{numeric, from 0 to 1. It sets the transparency of the color}
 }
 \value{
 nothng, just paint the background
