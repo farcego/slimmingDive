@@ -31,8 +31,8 @@ We load the data and see what's on it:
 ```{r }
 library(slimmingDive)
 
-data(eles)
-dim(eles)
+data(ele)
+dim(ele)
 ```
 it contains a large number of columns, innecesary to our purposes, so
 we preprocess the data. This step is important as it will rename and
@@ -40,7 +40,7 @@ create few extra variables needed for further processing.
 
 ```{r }
 
-Data <- formatDives(eles)
+Data <- formatDives(ele)
 
 dim(Data)
 str(Data)
@@ -54,32 +54,23 @@ generated. As the Drifing segment and drift rate depends on them
 Data[c('order','minresid')] <- t(apply(Data,1,RBSM,retrieve='both'))
 Data$minresid <- as.numeric(Data$minresid)
 ```
-
-That step will take around a couple of minutes. Next step is to
-generate a large bunch of variables used in following steps
+Next step is to generate a large bunch of variables for filtering purposes.
 
 ```{r }
-
 D1 <- NewVarsVect(Data)
-                                   # 30 secs
+```
+And the Drift rate and drifting segment
 
-
+```{r }
 D1[c('NDE','ds')] <- t(apply(D1,1,NDE, extract='both'))
-
-                                #6 seconds
-
 ```
 
-we have generated all the variables for the candidate Drift dives,
-let's see how they lloks:
 
 
 
 ```{r }
-
-
-par(mfrow = c(2,2),mar = c(4,4,2,2))
-lapply(split(D1, D1$ref), plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate',
+          xlim = c(-10, 245))
 
 ```
 We have a bunch of dives with associated drift rates at any value
@@ -91,25 +82,26 @@ dives:
 ```{r }
 D1 <- driftFilter(D1)
 
-par(mfrow = c(2,2),mar = c(4,4,2,2))
-lapply(split(D1, D1$ref), plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+
+plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
 
 
 ```
 
-A pattern aroses, so next step is to kalman. Because it is time
-consuming, we can load data as if just kalmaned
+A pattern aroses, but a last step is required to filter the
+unrealistic values still retaining by the filtering process. Because
+it is time consuming, we can load data as if just kalmaned
 
 ```{r }
-data(kalman)
+data(eleK)
 
 
-D2 <- lapply(kalman, PostKalman)
-D2 <- lapply(D2, function(fo) fo <- fo[fo$zetas > .99, ])
+D2 <- PostKalman(eleK)
+D2 <- D2[D2$zetas > .99, ]
 
 
-par(mfrow = c(2,2), mar = c(4,4,2,2))
-lapply(D2, plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+
+plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
 ```

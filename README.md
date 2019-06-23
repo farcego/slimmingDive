@@ -5,22 +5,23 @@
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
-This package process diving data of elephant seals summarized by a
-broken-stick algorithm. It filter the data in three steps to select
-Drift dives. Drift dives are a particular types of dives that contains
-a long, inactive phase in which the seals drifts passively long the
-water colum. If these inactive phases are identified, then we can
-track the buoyancy of the seal (and its changes). It requires Jags
-(Just another Gibs sampler) to be installed.
+slimmingDive provides a set of cuntions to process summarized dive
+profiles form elephant seals for selecting and estimating the drift
+rate, accordingly with Arce et al. (2019). It filter the data in three
+steps to select Drift dives. Drift dives are a particular types of
+dives that contains a long, inactive phase in which the seals drifts
+passively long the water colum. If these inactive phases are
+identified, then we can track the buoyancy of the seal (and its
+changes). It requires jags (Just another Gibs sampler) to work.
 
 
-# JAGS installation:
+## JAGS installation
 
 follow this link: http://mcmc-jags.sourceforge.net/
 
 
 
-# Installation
+## slimmingDive Installation
 
 
 You need package `remotes` to install slimmingDive
@@ -35,8 +36,7 @@ Alternatively, you can download this git repo to your machine and
 install it using your prefered procedures
 
 
-
-# Citation:
+## Citation
 
 Arce, F., Bestley, S., Hindell, M. A., McMahon, C. R. & Wotherspoon,
 S. 2019. A quantitative, hierarchical approach for detecting drift
