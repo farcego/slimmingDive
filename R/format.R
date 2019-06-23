@@ -25,9 +25,7 @@ formatDives <- function(Data){
     Data$T2 <- (Data$t2*Data$DIVE_DUR) / 100
     Data$T3 <- (Data$t3*Data$DIVE_DUR) / 100
     Data$T4 <- (Data$t4*Data$DIVE_DUR) / 100
-    Data <- split(Data, Data$ref)
-    Data <- lapply(Data, function(fo) fo[order(fo$Date), ])
-    Data <- do.call(rbind, Data)
+    Data <- Data[order(Data$ref,Data$Date), ]
     Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > 100
                & Data$T1 > 0, ]
     return(Data)
