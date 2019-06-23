@@ -1,5 +1,8 @@
 # slimmingDive
 
+
+<img src="inst/readme.gif" align="center" />
+
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
