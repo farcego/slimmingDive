@@ -1,7 +1,6 @@
 # slimmingDive
 
 
-<img src="inst/readme.gif" align="center" />
 
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
@@ -11,12 +10,12 @@ broken-stick algorithm. It filter the data in three steps to select
 Drift dives. Drift dives are a particular types of dives that contains
 a long, inactive phase in which the seals drifts passively long the
 water colum. If these inactive phases are identified, then we can
-track the buoyancy of the seal )and its changes(
+track the buoyancy of the seal (and its changes)
 
 
 
 
-## Installation
+# Installation
 
 
 You need `remotes`  (or `devtools`) to install slimmingDive
@@ -26,15 +25,12 @@ directly from R as it is not (yet) in CRAN
 #install.packages("remotes")
 remotes::install_github("farcego/slimingDive")
 ```
-```r
-## install.packages('remotes')
-remotes::install_packages()
-```
+
 or 
 
 ```r
 ## install.packages('devtools')
-devtools::install_github()
+devtools::install_github("farcego/slimmingDive")
 ```
 
 Alternatively, you can download this git repo to your machine and
