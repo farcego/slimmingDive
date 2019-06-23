@@ -50,4 +50,4 @@ seals. Scientific Reports: 9, 8936.
 ## Aknowledgements
 
 The data contained in the package is provided by the Australian
-Integrate Marine Observing System (![IMOS](http://imos.org.au/))
+Integrate Marine Observing System ([IMOS](http://imos.org.au/))
