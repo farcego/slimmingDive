@@ -6,7 +6,7 @@
 
 
 slimmingDive provides a set of funtions to process dive profiles from
-elephant seals, summarized by a brocken-stick algorithm and
+elephant seals, summarized by a broken-stick algorithm and
 transmitted through the Argos satellite system. It has been developed
 to detect drift dives and associated drift rates. Drift dives are a
 particular type of dives that contains a long, inactive phase in which
