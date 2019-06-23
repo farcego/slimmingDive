@@ -29,25 +29,27 @@ locally. You can also use either `remotes` or `devtools` packages
 
 We load the data and see what's on it:
 ```{r }
+library(slimmingDive)
+
 data(eles)
-
-
 dim(eles)
 ```
 it contains a large number of columns, innecesary to our purposes, so
 we preprocess the data. This step is important as it will rename and
 create few extra variables needed for further processing.
 
-```{R }
-source('../R/format.R')
+```{r }
+
 Data <- formatDives(eles)
 
-dim(Data2)
+dim(Data)
 str(Data)
 ```
 
-Next step is to otain the order in which the inflection points are generated
-```{R }
+Next step is to otain the order in which the inflection points are
+generated. As the Drifing segment and drift rate depends on them
+
+```{r }
 
 Data[c('order','minresid')] <- t(apply(Data,1,RBSM,retrieve='both'))
 Data$minresid <- as.numeric(Data$minresid)
@@ -62,7 +64,6 @@ D1 <- NewVarsVect(Data)
                                    # 30 secs
 
 
-source('../R/nde.R')
 D1[c('NDE','ds')] <- t(apply(D1,1,NDE, extract='both'))
 
                                 #6 seconds
@@ -76,13 +77,10 @@ let's see how they lloks:
 
 ```{r }
 
-source('../R/plot.R')
 
-##D1 <- do.call(rbind, D1)
-png('una.png')
 par(mfrow = c(2,2),mar = c(4,4,2,2))
 lapply(split(D1, D1$ref), plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
-dev.off()
+
 ```
 We have a bunch of dives with associated drift rates at any value
 
@@ -91,13 +89,11 @@ dives:
 
 
 ```{r }
-source('../R/filter.R')
-## we have to use final filter
 D1 <- driftFilter(D1)
-png('dos.png')
+
 par(mfrow = c(2,2),mar = c(4,4,2,2))
 lapply(split(D1, D1$ref), plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
-dev.off()
+
 
 
 ```
@@ -106,19 +102,14 @@ A pattern aroses, so next step is to kalman. Because it is time
 consuming, we can load data as if just kalmaned
 
 ```{r }
-load('../data/kalman.RData')
+data(kalman)
 
-str(kalman)
-
-source('../R/Kalman.R')
 
 D2 <- lapply(kalman, PostKalman)
 D2 <- lapply(D2, function(fo) fo <- fo[fo$zetas > .99, ])
 
-png('tres.png')
+
 par(mfrow = c(2,2), mar = c(4,4,2,2))
 lapply(D2, plotDrift, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
-dev.off()
+
 ```
-xaxt = 'no',
-         yaxt = 'no', xlab = '', ylab = '', cex = 2.5, xlim = c(-10, 245)
