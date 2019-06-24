@@ -16,7 +16,7 @@ primarily by the buoyancy of the seal (that is, the ratio beteen
 blubber and lean tissue). It offers an efective measure
 for tracking changes the body condition of the seals, and its changes, from low
 resolution dive information. **slimmingDive** implements the method
-reported in Arce et al. (2019), and requires **jags* (Just another Gibs
+reported in Arce et al. (2019), and requires *jags* (Just another Gibs
 sampler) to be intalled in order to work.
 
 
