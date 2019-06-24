@@ -10,12 +10,13 @@ elephant seals (*Mirounga leonina*), summarized by a broken-stick algorithm and 
 through the Argos satellite system. It has been developed to detect
 drift dives and associated drift rates. Drift dives are a particular
 type of dives that contain a long, inactive phase in which the seals
-drift passively along the water colum. As elephant seals exhales
-before diving, and are deep divers, the drift rate is determined
-primarily by the buoyancy of the seal. They offer an efective measure
-for tracking changes on the body condition of the seals from low
-resolution dive information. slimmingDive implements the method
-reported in Arce et al. (2019), and requires jags (Just another Gibs
+drift passively along the water colum. Due the specific
+characteristics of elephant seals dives, the observed drift rate is determined
+primarily by the buoyancy of the seal (that is, the ratio beteen
+blubber and lean tissue). It offers an efective measure
+for tracking changes the body condition of the seals, and its changes, from low
+resolution dive information. **slimmingDive** implements the method
+reported in Arce et al. (2019), and requires **jags* (Just another Gibs
 sampler) to be intalled in order to work.
 
 
