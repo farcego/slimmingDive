@@ -95,10 +95,12 @@ it is time consuming, we can load the same seal processed. The data
 cames in a complex format, but we can just get what we want easily:
 
 ```{r }
-data(eleK)
+
+## D2 <- Kalman(D1,400000, 1000)
+data(elek)
 
 ## collect data
-D2 <- PostKalman(eleK)
+D2 <- PostKalman(elek)
 ## select the Drift dives
 D2 <- D2[D2$zetas > .99, ]
 
