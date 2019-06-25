@@ -2,7 +2,6 @@
 [![DOI](https://zenodo.org/badge/190671173.svg)](https://zenodo.org/badge/latestdoi/190671173)
 
 
-
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
