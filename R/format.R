@@ -1,12 +1,12 @@
-##' function that makes a subset of variables with some recoding and dive removal for filtering purposes
+##' Function that takes a subset of variables and do some recoding and dive removal for filtering purposes
 ##'
 ##' This functions keeps the variables needed to apply the subsequents procedures of this package.
-##' It will make the date of class POSIXct if supplied as a factor and will make the ref (id of the tag) of type character. it also sort the rows by tag id (ref) and by date (Date).
-##' It also removes dives shallower than 100 meter depth and shorter than 300 seconds.
+##' It will make the Date of class POSIXct if supplied as a factor and will make the ref (id of the tag) of type character. It also sorts the rows by tag id (ref) and by date (Date).
+##' It also removes dives not reaching 100 meter depth and shorter than 300 seconds.
 ##' @title formatDives
 ##' @param Data an object of class daata.frame
 ##' @return a data.frame containing a subset of the variables needed to keep processing the data.frame
-formatDives <- function(Data){
+formatDives <- function(Data, format){
     '%out%' <- Negate('%in%')
     Data <- Data[,c("ref", "DE_DATE", "SURF_DUR", "DIVE_DUR","MAX_DEP","D1","D2",
                     "D3", "D4","T1", "T2","T3","T4")]

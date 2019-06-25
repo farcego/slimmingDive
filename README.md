@@ -1,4 +1,5 @@
 # slimmingDive
+[![DOI](https://zenodo.org/badge/190671173.svg)](https://zenodo.org/badge/latestdoi/190671173)
 
 
 
