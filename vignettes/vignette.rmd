@@ -27,7 +27,10 @@ locally. You can also use either `remotes` or `devtools` packages. If
 you are reading this vignette, it means that you have installed
 **slimmingDive** already :).
 
+```{r }
+remotes::install_github('farcego/slimmingDive')
 
+```
 
 Load the data:
 ```{r }
@@ -98,7 +101,22 @@ cames in a complex format, but we can just get what we want easily:
 
 ## D2 <- Kalman(D1,400000, 1000)
 data(elek)
+plotDrift(elek$Data, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
+identical(elek$Data, D1)
+
+dim(D1)
+dim(elek$Data)
+
+## ok, the problem is in the formats. I should move time to previous steps
+
+for(i in 1:48){
+    (identical(elek$Data[[1]], D1[[1]]), '\t')
+}
+
+identical(elek$Data[,1:48], D1)
+
+names(elek$Data) %in% names(D1)
 ## collect data
 D2 <- PostKalman(elek)
 ## select the Drift dives
