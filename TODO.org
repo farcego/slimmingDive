@@ -1,9 +1,10 @@
-* TODO Data pre-processing
+* DONE Data pre-processing
+  CLOSED: [2019-11-21 Thu 10:33]
   Improvement of the fuction. I have found some files with duplicated
   rows and not being ordered by date (Didn;t i fix it already?)
-- [ ]  order by date
+- [X]  order by date
    something like fo[order(fo$Date), ]
-- [ ] remove duplicated entries
+- [X] remove duplicated entries
    something like fo[!duplicated(fo), ]
 * TODO [#A] GAM implementation
   Implement the GAM with the custom link function used on th epolynya

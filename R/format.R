@@ -27,6 +27,11 @@ formatDives <- function(Data, format){
     Data$T4 <- (Data$t4*Data$DIVE_DUR) / 100
     Data <- Data[order(Data$ref,Data$Date), ]
     Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > 100
-               & Data$T1 > 0, ]
+                 & Data$T1 > 0, ]
+    Data <- Data[Data$T1 < Data$T2, ]
+    Data <- Data[Data$T2 < Data$T3, ]
+    Data <- Data[Data$T3 < Data$T4, ]
+    Data <- Data[order(Data$Date), ]
+    Data <- Data[!duplicated(Data), ]
     return(Data)
 }
