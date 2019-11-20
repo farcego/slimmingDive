@@ -1,0 +1,12 @@
+* TODO Data pre-processing
+  Improvement of the fuction. I have found some files with duplicated
+  rows and not being ordered by date (Didn;t i fix it already?)
+- [ ]  order by date
+   something like fo[order(fo$Date), ]
+- [ ] remove duplicated entries
+   something like fo[!duplicated(fo), ]
+* TODO [#A] GAM implementation
+  Implement the GAM with the custom link function used on th epolynya
+  paper
+* TODO [#A] Improve vignette
+* TODO [#A] Improve help files
