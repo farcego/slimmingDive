@@ -1,14 +1,15 @@
 ##' Post-processed seal
 ##'
-##' An example of a seal dataset as tipically provided by SMRU tags
-##'
+##' The seal dataset (ele) provided in slimmingDive after being fully
+##' processed by slimmingDive (before aplying the postKalman function)
+##' 
 ##' @format A list with 6 objects:
 ##' \describe{
 ##'   \item{Data}{Dataset imputed to the kalman filter}
 ##'   \item{model}{model definition}
 ##'   \item{kalman}{kalman expression}
 ##'   \item{mns}{summaries}
-##'   \item{duration}{length of the run}
+##'   \item{duration}{The time it took to fit the model}
 ##'   \item{burn.in}{burn.in length, in iterations}
 ##' ...
 ##' }

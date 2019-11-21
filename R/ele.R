@@ -1,6 +1,9 @@
-##' Pre-processed seal
+##' elephant seal pre-processed dataset
 ##'
-##' An example of a seal dataset as tipically provided by SMRU tags
+##' An example of a seal dataset as tipically provided by SMRU
+##' tags. There are slight differences between datasets from SMRU
+##' tags. Some variables may be lower or upper case in different data
+##' sets.
 ##'
 ##' @format A data frame with 53940 rows and 10 variables:
 ##' \describe{
