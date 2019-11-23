@@ -1,10 +1,13 @@
-##' Get the time at which the maximum depth of a given dive is reached.
-##'
 ##' Get the time-stamp at maximum depth
+##'
+##' Get the time at which the maximum depth of a given dive is
+##' reached.
 ##' @title maximum time
-##' @param x vector
-##' @return a vector of something
-maxTimes <- function(x){
+##' @param x a given dive containing the times and depths of the
+##'     broken-stick algoritm.
+##' @return the time when the maximi depth is reached. A \code{vector}
+##'     of class code{numeric} and length one.
+maxtime <- function(x){
     data.depths <- x[c('D1','D2','D3','D4')]
     data.times <- x[c('T1','T2','T3','T4')]
     l <- which.max(data.depths)
@@ -60,7 +63,7 @@ NewVarsVect <- function(Data = Data, t = FALSE){
     Data$daratio <- Data$descspeed/Data$ascspeed
     Data$max.depth <- apply(Data[c('D1','D2','D3','D4')],1,'max')
     Data$min.depth <- apply(Data[c('D1','D2','D3','D4')],1,'min')
-    Data$max.time <- apply(Data,1,maxTimes)
+    Data$max.time <- apply(Data,1,maxtime)
     Data$avratio <- numeric(nrow(Data))
     Data$avratio <- apply(Data,1,AvRatio)
     Data$mdr <- numeric(nrow(Data))
