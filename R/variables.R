@@ -7,7 +7,7 @@
 ##'     broken-stick algoritm.
 ##' @return the time when the maximi depth is reached. A \code{vector}
 ##'     of class code{numeric} and length one.
-maxtime <- function(x){
+maxTime <- function(x){
     data.depths <- x[c('D1','D2','D3','D4')]
     data.times <- x[c('T1','T2','T3','T4')]
     l <- which.max(data.depths)
@@ -63,7 +63,7 @@ NewVarsVect <- function(Data = Data, t = FALSE){
     Data$daratio <- Data$descspeed/Data$ascspeed
     Data$max.depth <- apply(Data[c('D1','D2','D3','D4')],1,'max')
     Data$min.depth <- apply(Data[c('D1','D2','D3','D4')],1,'min')
-    Data$max.time <- apply(Data,1,maxtime)
+    Data$max.time <- apply(Data,1,maxTime)
     Data$avratio <- numeric(nrow(Data))
     Data$avratio <- apply(Data,1,AvRatio)
     Data$mdr <- numeric(nrow(Data))
