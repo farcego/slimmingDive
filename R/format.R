@@ -10,6 +10,7 @@ formatDives <- function(Data, format){
     '%out%' <- Negate('%in%')
     ## New addition, it potentially may break code, 21/nov/2019
     names(Data) <- tolower(names(Data))
+    Data$ref <- as.character(Data$ref)
     Data <- Data[, c('ref', 'de_date', 'surf_dur',
                      'dive_dur', 'max_dep', 'd1',
                      'd2', 'd3','d4','t1','t2','t3',
@@ -20,19 +21,21 @@ formatDives <- function(Data, format){
                      'D2', 'D3','D4','T1','T2','T3',
                      'T4', 'lat','lon')
     ## end of the addition
-
+    Data$ref <- as.character(Data$ref)
     ## new deletion, 21/nov/2019
     ## Data <- Data[,c("ref", "DE_DATE", "SURF_DUR", "DIVE_DUR","MAX_DEP","D1","D2",
     ##                 "D3", "D4","T1", "T2","T3","T4")]
-    ## Data$ref <- as.character(Data$ref)
+    ## 
     ## end of deletion
+    
     if ('POSIXct' %out% class(Data$DE_DATE)){
-        Data$Date <- as.POSIXct(strptime(as.character(Data$DE_DATE), format = '%d/%m/%y %H:%M:%S'))
+        Data$Date <- as.POSIXct(strptime(as.character(Data$DE_DATE),
+                                         format = '%d/%m/%y %H:%M:%S'))
     } else {
         Data$Date <- Data$DE_DATE
     }
     Data$DE_DATE <- NULL
-
+    
     
     Data$t1 <- Data$T1
     Data$t2 <- Data$T2
