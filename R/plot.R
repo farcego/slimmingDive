@@ -1,13 +1,15 @@
 ##' Change the background of the plot
 ##'
-##' This function takes the 'actual' ranges of the plotting region (R adds
-##' 4% extra to the range of the variables) and draw a rectangle with the desired color.
-##' This function is intended to be called by panel.first argument inside plot function.
-##' It should take any color in any format supported by R
+##' This function takes the 'actual' ranges of the plotting region (R
+##' adds 4% extra to the range of the variables) and draw a rectangle
+##' with the desired color. This function is made to be called by
+##' \code{panel.first} argument inside plot function.  It should take
+##' any color in any format supported by R
 ##' @title BGC: back-ground-color
-##' @param col name of the color  in any format supported by R. 
-##' @param alpha numeric, from 0 to 1. It sets the transparency of the color
-##' @return nothng, just paint the background
+##' @param col name of the color in any format supported by R.
+##' @param alpha numeric, from 0 to 1. It sets the transparency of the
+##'     color
+##' @return it will add colout to the background of a plot
 BGC <- function(col = 'bisque', alpha = 1){
     rect(par('usr')[[1]],
          par('usr')[[3]],
@@ -18,15 +20,18 @@ BGC <- function(col = 'bisque', alpha = 1){
 }
 
 
-##' Function for making the vignette plot
+##' Function for plotting Drift rate time series using pre-determined
+##' graphical parameters
 ##'
-##' This function wraps some code to make nice looking plots for the vignette.
+##' This function wraps some code to make nice looking plots for the
+##' vignette.
 ##' @title plotDrift
-##' @param Data a seal dataset in data.frame format
-##' @param ID logical. If true it will print some axis and the tag id on the plot 
-##' @param ... aditional arguments to be pasted to the  generic plot function
-##' @return 
-##' @author Fer Arce
+##' @param Data a seal dataset in \code{data.frame} format
+##' @param ID \code{logical}. If true it will print axis and the tag id
+##'     on the plot
+##' @param ... aditional arguments to be pasted to the generic plot
+##'     function
+##' @return a plot of the drift rate time series.
 plotDrift <- function(Data, ID = FALSE, ...){
     Yys <- round(cumsum(c(0,diff(Data$Date, , units = 'days')))/1440, 1)
     plot(Yys, Data$NDE, col = 'black', panel.first = BGC(), ylim = c(-.45,.3),
