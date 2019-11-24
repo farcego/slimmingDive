@@ -1,13 +1,48 @@
-* DONE Data pre-processing
-  CLOSED: [2019-11-21 Thu 10:33]
-  Improvement of the fuction. I have found some files with duplicated
-  rows and not being ordered by date (Didn;t i fix it already?)
+* DONE Data pre-processing [100%]
+  CLOSED: [2019-11-21 Thu 12:35]
+  I have found some data files with duplicated rows and not being
+  ordered by date. Proposed changes:
 - [X]  order by date
    something like fo[order(fo$Date), ]
 - [X] remove duplicated entries
    something like fo[!duplicated(fo), ]
+- [X] Fix the problem with variable cases
+  for certain datasets provided by SMRU, some relevant fields like
+  latitude or longitude may appear either in lower or upper cases.
 * TODO [#A] GAM implementation
   Implement the GAM with the custom link function used on th epolynya
   paper
-* TODO [#A] Improve vignette
-* TODO [#A] Improve help files
+* IN-PROGRESS [#A] Improve Documentation [25%]
+** DONE Expand the vignette
+   CLOSED: [2019-11-23 Sat 12:24]
+** TODO make the vignette static
+https://www.markvanderloo.eu/yaRb/2019/01/11/add-a-static-pdf-vignette-to-an-r-package/
+** TODO Add paper as static pdf vignette
+** IN-PROGRESS [#A] Improve help files [80%]
+- [X] avRatio
+- [X] BGC
+- [ ] DayDep
+- [ ] DayDrift
+- [ ] Dayplot
+- [X] driftFilter
+- [X] ele
+- [X] elek
+- [X] formatDives
+- [X] kalman
+- [ ] MaxTime
+- [X] maxTime
+- [X] mDepthR
+- [X] modRes
+- [X] NDE
+- [X] newVarsVect
+- [X] plotDrift
+- [X] postKalman
+- [X] RBSM
+- [X] updateKalman
+* TODO add parallel version for variable generation and kalman filtering [0%]
+Not expected for the next release
+- [ ] Check it's compatibility under windows.
+- [ ] Implement the written functions
+* IN-PROGRESS make function and argument names consistent
+ther eis a mixture of camelCase and CamelCase in the package
+* TODO make internal functions non-exported
