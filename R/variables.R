@@ -18,7 +18,13 @@ maxTime <- function(x){
 
 
 
-##' Function for generating the variables required to apply the filtering process. This function has been tested with tables extracted from the Integrated Marine Observing System (IMOS, Australia) freely available data, and it should work with any Sea-mammal Research Unit (SMRU, St. Andrews, Scotland) provided file. please contact the author if it does not work with your data to find a custom adaptation suitable for your data.
+##' Function for generating the variables required to apply the
+##' filtering process. This function has been tested with tables
+##' extracted from the Integrated Marine Observing System (IMOS,
+##' Australia) freely available data, and it should work with any
+##' Sea-mammal Research Unit (SMRU, St. Andrews, Scotland) provided
+##' file. please contact the author if it does not work with your data
+##' to find a custom adaptation suitable for your data.
 ##'
 ##' Newly computed variables: \cr
 ##' \itemize{
@@ -48,9 +54,9 @@ maxTime <- function(x){
 ##' }
 ##' @title New variable generator
 ##' @param Data an object of class 'data.frame' containing at least the Broken-stick output ([T1...T4], [D1...D4]), dive duration (DIVE_DUR)
-##' @param t Logical. wheter t1...t4 exist on the Data or not. If FALSE, they are computed
+##' @param t \code{Logical}. wheter t1...t4 exist on the Data or not. If FALSE, they are computed
 ##' @return this function returns the provided dataset with newly added columns named as variables described above, with the calculations.
-NewVarsVect <- function(Data = Data, t = FALSE){
+newVarsVect <- function(Data = Data, t = FALSE){
     a.n <- as.numeric
     if (t == FALSE){
         Data$t1 <- (Data$T1 / Data$DIVE_DUR) * 100
@@ -82,7 +88,7 @@ NewVarsVect <- function(Data = Data, t = FALSE){
     Data$propseg3 <- Data$t4 - Data$t3
     Data$mrratio <- as.numeric(Data$minresid) / as.numeric(Data$max.depth)
     Data$mdepthr <- mean(c(Data$D1,Data$D2,Data$D3,Data$D4))/Data$max.depth
-    Data$mdepthr1 <- apply(Data,1,Mdepthr)
+    Data$mdepthr1 <- apply(Data,1,mDepthR)
     Data$mdepthbias <- (Data$max.time - (Data$DIVE_DUR/2)) / Data$DIVE_DUR
     Data$hp1 <- sqrt((abs(Data$D1-Data$D2))^2 + (Data$T2 - Data$T1)^2)
     Data$hp2 <- sqrt((abs(Data$D2-Data$D3))^2 + (Data$T3 - Data$T2)^2)
@@ -92,11 +98,12 @@ NewVarsVect <- function(Data = Data, t = FALSE){
 
 ##' MdepthR
 ##'
-##' calculates mdepthr
+##' Internal function to calculate mDepthR. Shouldn't be called by the
+##' end user
 ##' @title MdepthR
 ##' @param x a vector
 ##' @return a value
-Mdepthr <- function(x){
+mDepthR <- function(x){
     a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
     mdept <- mean(dd)/a.n(x['max.depth'])
