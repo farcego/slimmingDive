@@ -4,7 +4,7 @@
 \alias{formatDives}
 \title{formatDives}
 \usage{
-formatDives(Data, format)
+formatDives(Data)
 }
 \arguments{
 \item{Data}{an object of class daata.frame}
