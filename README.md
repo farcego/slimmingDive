@@ -5,7 +5,7 @@
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
 
-**slimmingDive** provides a set of funtions to process dive profiles
+**slimmingDive** provides a suite of funtions to process dive profiles
 of southern elephant seals (*Mirounga leonina*), summarized by a
 broken-stick algorithm and transmitted through the Argos satellite
 system. It has been developed to detect drift dives and associated
@@ -17,7 +17,7 @@ seal (that is, the ratio beteen blubber and lean tissues). It offers an
 efective measurement for tracking changes the body condition of the seals,
 and its changes, from low resolution dive information.\
 **slimmingDive** implements the method reported in Arce et al. (2019),
-and requires *jags* (Just another Gibs sampler) to be intalled in
+and requires *jags* (Just another Gibbs sampler) to be installed in
 order to work.
 
 
@@ -34,7 +34,7 @@ directly from GitHub as it is not (yet) in CRAN
 
 ```R
 ## install.packages("remotes")
-remotes::install_github("farcego/slimingDive")
+remotes::install_github("farcego/slimmingDive")
 ```
 
 Alternatively, you can download this git repo to your machine and
