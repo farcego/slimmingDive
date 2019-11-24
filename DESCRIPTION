@@ -1,7 +1,7 @@
 Package: slimmingDive
 Type: Package
 Title: Flexible, Hierarchical Selection of Drift Dives
-Version: 0.1.0.1
+Version: 0.1.0.2
 Authors@R: c(person("Fer", "Arce", email = "fernando.arcegonzalez@utas.edu.au", role = c("aut", "cre")),
 	   person("Sophie", "Bestley", email = "sophie.bestley@utas.edu.au", role = "ctb"),
 	   person("clive", "McMahon", email = "clive.mcmahon@utas.edu.au", role = "ctb"),
@@ -9,7 +9,7 @@ Authors@R: c(person("Fer", "Arce", email = "fernando.arcegonzalez@utas.edu.au", 
 	   person("Simon", "Wotherspoon", email = "simon.wotherspoon@utas.edu.au", role = "aut")
 	   )
 Description: Package slimingDive contains a set of function for detect and filter drift dives from elephant seal dive profiles summarized by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by the Australian Integrated Marine Observing System (IMOS). It has not been tested with other species that performs Drift dives so any test is welcome. 
-Maintainer: Fer Arce <farcego@gmail.comu>
+Maintainer: Fer Arce <farcego@gmail.com>
 Depends: R (>= 3.3.0)
 Imports: rjags
 License: GPL-3 + file LICENSE
