@@ -17,22 +17,23 @@ knitr::opts_chunk$set(
 ```
 
 
-This is a minimal example to introduce the usage of **slimmingDive** with
-southern elephant seals dive information kindly provided by the
-Australian Integrated Marine Observing System (IMOS). It requires the external software JAGS (Just another Gibs
+
+This is a minimal example to introduce the usage of **slimmingDive**
+with Southern elephant seals summarized dive information kindly
+provided by the Australian Integrated Marine Observing System
+(IMOS). It requires the external software JAGS (Just another Gibs
 sampler) to be installed or slimmingDive will fail to install.
 
 slimmingDive is not on cran, so you need to download and install it
-locally. You can also use either `remotes` or `devtools` packages. If
-you are reading this vignette, it means that you have installed
-**slimmingDive** already :).
+locally. You can also use either `remotes` or `devtools` packages.
 
 ```{r }
-remotes::install_github('farcego/slimmingDive')
+## remotes::install_github('farcego/slimmingDive')
 
 ```
 
-Load the data:
+Load the package and the build-in data:
+
 ```{r }
 library(slimmingDive)
 
@@ -40,9 +41,12 @@ data(ele)
 ```
 
 These type of datasets tipically contain a large number of columns,
-innecesary to our purposes, so better to pre-process the data. This
-step is important as it will rename and create few extra variables
-needed for further steps. It also removes short, shallower dives.
+innecesary to our purposes, so better to pre-process the data and get
+rid of them. This first step remove certain dives. first, it will
+remove dives shallower than 100 m depth and 300 s of duration. It will
+sort the data by date, remove repeated rows (if any) and those with
+have certain issues like more than one inflection point at the same
+time.
 
 ```{r }
 Data <- formatDives(ele)
@@ -50,78 +54,75 @@ Data <- formatDives(ele)
 dim(Data)
 ```
 
-Next step is to otain the order in which the inflection points are
-generated, as the Drifing segment and drift rate depends on them
+Next step is to otain the order in which the inflection points were
+generated onboard the tag, and the residual of the last point, as the
+drifing segment and drift rate toguether with furter calculations
+depend on them.
 
 ```{r }
 
 Data[c('order','minresid')] <- t(apply(Data,1,RBSM,retrieve='both'))
 Data$minresid <- as.numeric(Data$minresid)
 ```
-Now we can  generate a large bunch of variables for filtering purposes.
+
+We can now generate the variables needed for the filtering process:
 
 ```{r }
-D1 <- NewVarsVect(Data)
+D1 <- newVarsVect(Data)
 ```
 And get the Drift rate estimate and drifting segment:
 
 ```{r }
 D1[c('NDE','ds')] <- t(apply(D1,1,NDE, extract='both'))
 ```
-
+We have a bunch of candidate drift dives with associated drift rates,
+but most of them are non drift dives and will be rejected at the next
+step:
 
 
 
 ```{r }
 plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate',
-          xlim = c(-10, 245))
-
+          xlim = c(-10, 245), cex.lab = 1.5, cex = 2)
 ```
-We have a bunch of dives with associated drift rates at any value
 
-Next step would be to get ridden of those that are certainly no drift
-dives:
-
+to get ride of those that are certainly non drift dives, we pass a
+flexible filter based on the previously calculated variables:
 
 ```{r }
 D1 <- driftFilter(D1)
-## let's have a quick look
-plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+```
 
+And we can see again how the drifting trajectory looks like:
 
-
+```{r }
+plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', cex.lab = 1.5, cex = 2,
+          xlim = c(-10, 245))
 ```
 
 A pattern aroses, but a last step is required to filter the
 unrealistic values still retained by the filtering process. Because
-it is time consuming, we can load the same seal processed. The data
-cames in a complex format, but we can just get what we want easily:
+it is time consuming, we can load the same seal but fully processed. The data
+cames cames as a list:
 
 ```{r }
 
-## D2 <- Kalman(D1,400000, 1000)
+## if you want to run the kalman filter, uncomment the line below and run it.
+## D2 <- kalman(D1,400000, 10000, n.adap = 10000)
+
 data(elek)
-plotDrift(elek$Data, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
 
-identical(elek$Data, D1)
 
-dim(D1)
-dim(elek$Data)
 
-## ok, the problem is in the formats. I should move time to previous steps
-
-for(i in 1:48){
-    (identical(elek$Data[[1]], D1[[1]]), '\t')
-}
-
-identical(elek$Data[,1:48], D1)
-
-names(elek$Data) %in% names(D1)
-## collect data
-D2 <- PostKalman(elek)
+D2 <- postKalman(elek)
 ## select the Drift dives
 D2 <- D2[D2$zetas > .99, ]
 
 plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+
+
+
+plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
+          ylab = 'Drift rate', xlim = c(-10, 245))
 
 ```
