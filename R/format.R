@@ -12,7 +12,7 @@
 ##' @param Data an object of class daata.frame
 ##' @return a data.frame containing a subset of the variables needed
 ##'     to keep processing the data.frame
-formatDives <- function(Data, format){
+formatDives <- function(Data){
     '%out%' <- Negate('%in%')
     ## New addition, it potentially may break code, 21/nov/2019
     names(Data) <- tolower(names(Data))
