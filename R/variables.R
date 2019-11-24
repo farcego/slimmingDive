@@ -71,9 +71,9 @@ newVarsVect <- function(Data = Data, t = FALSE){
     Data$min.depth <- apply(Data[c('D1','D2','D3','D4')],1,'min')
     Data$max.time <- apply(Data,1,maxTime)
     Data$avratio <- numeric(nrow(Data))
-    Data$avratio <- apply(Data,1,AvRatio)
+    Data$avratio <- apply(Data,1,avRatio)
     Data$mdr <- numeric(nrow(Data))
-    Data$mdr <- apply(Data,1,ModRes)
+    Data$mdr <- apply(Data,1,modRes)
     Data$sp1 <- (Data$D2 - Data$D1) / (Data$T2 - Data$T1)
     Data$sp2 <- (Data$D3 - Data$D2) / (Data$T3 - Data$T2)
     Data$sratio <- Data$descspeed/((Data$D2-Data$D1)/(Data$T2-Data$T1))
@@ -114,12 +114,13 @@ mDepthR <- function(x){
 
 ##' Function for calculating the avratio of a summarized dive.
 ##'
-##' It actually looks bugged. that's probably why It has not been properly working for dive selection, but it may affect other functions like.
-##' Yes, it is used in in NDE local function. It should calculate the deviaion of the deepest point from the center of the dive
+##' This functions calculates the deviation of the deepest point from
+##' the middle of the dive.
 ##' @title Mid point ratio
-##' @param x A summarized dive profile (summarized by the Broken Stick algorithm)
-##' @return  a numeric value
-AvRatio <- function(x){
+##' @param x A summarized dive profile (summarized by the Broken Stick
+##'     algorithm)
+##' @return a \code{vector} of class \code{numeric} of length 1. 
+avRatio <- function(x){
     avratio=numeric()
     a.n <- as.numeric
     x['Sa'] <- (a.n(x['max.depth']) / a.n(x['max.time']))
@@ -140,7 +141,11 @@ AvRatio <- function(x){
 
 ## function for generating the residuals of a fitted linear model to the BSM points
 ##'
-##' ModRes generates the residuals of a linear model by fitting the depth points (D1..D4) vs the time points (T1..T4). While the dimension may not be of importance, the sign of the residuals may be for some criteria. It only returns the residual values, not the full object of class 'lm'.
+##' modRes generates the residuals of a linear model by fitting the
+##' depth points (D1..D4) vs the time points (T1..T4). While the
+##' dimension may not be of importance, the sign of the residuals may
+##' be for some criteria. It only returns the residual values, not the
+##' full object of class \code{lm}.
 ##' @title Least square residuals
 ##' @param x a summarized dive
 ##' @param res  wich residual is requested \cr
@@ -149,7 +154,7 @@ AvRatio <- function(x){
 ##' \item {5} all residuals pasted into a string separated by dots
 ##' }
 ##' @return A numeric value if a single residual is requested, or a character string if all are requested
-ModRes <- function(x,res=5){
+modRes <- function(x,res=5){
     a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
     dt <- a.n(x[c('T1','T2','T3','T4')])
