@@ -23,7 +23,7 @@ order to work.
 
 ## JAGS installation
 
-follow this link: http://mcmc-jags.sourceforge.net/
+follow the instructions of this link: http://mcmc-jags.sourceforge.net/
 
 
 ## slimmingDive Installation
