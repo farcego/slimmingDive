@@ -1,3 +1,5 @@
+# slimmingDive 0.1.0.2
+* help files improved and old ones of non-extant functions removed.
 # slimmingDive 0.1.0.1
 * First release. There may be some changes around before an official
   second release, as some parts are still incomplete (help files etc)
