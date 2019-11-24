@@ -7,19 +7,21 @@
 BGC(col = "bisque", alpha = 1)
 }
 \arguments{
-\item{col}{name of the color  in any format supported by R.}
+\item{col}{name of the color in any format supported by R.}
 
-\item{alpha}{numeric, from 0 to 1. It sets the transparency of the color}
+\item{alpha}{numeric, from 0 to 1. It sets the transparency of the
+color}
 }
 \value{
-nothng, just paint the background
+it will add colout to the background of a plot
 }
 \description{
 Change the background of the plot
 }
 \details{
-This function takes the 'actual' ranges of the plotting region (R adds
-4% extra to the range of the variables) and draw a rectangle with the desired color.
-This function is intended to be called by panel.first argument inside plot function.
-It should take any color in any format supported by R
+This function takes the 'actual' ranges of the plotting region (R
+adds 4% extra to the range of the variables) and draw a rectangle
+with the desired color. This function is made to be called by
+\code{panel.first} argument inside plot function.  It should take
+any color in any format supported by R
 }

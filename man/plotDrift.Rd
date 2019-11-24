@@ -7,18 +7,22 @@
 plotDrift(Data, ID = FALSE, ...)
 }
 \arguments{
-\item{Data}{a seal dataset in data.frame format}
+\item{Data}{a seal dataset in \code{data.frame} format}
 
-\item{ID}{logical. If true it will print some axis and the tag id on the plot}
+\item{ID}{\code{logical}. If true it will print axis and the tag id
+on the plot}
 
-\item{...}{aditional arguments to be pasted to the  generic plot function}
+\item{...}{aditional arguments to be pasted to the generic plot
+function}
+}
+\value{
+a plot of the drift rate time series.
 }
 \description{
-Function for making the vignette plot
+Function for plotting Drift rate time series using pre-determined
+graphical parameters
 }
 \details{
-This function wraps some code to make nice looking plots for the vignette.
-}
-\author{
-Fer Arce
+This function wraps some code to make nice looking plots for the
+vignette.
 }

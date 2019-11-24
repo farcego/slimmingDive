@@ -7,7 +7,8 @@
 RBSM(dive, retrieve = "order")
 }
 \arguments{
-\item{dive}{A dive profile summarized by a Broken Stick Algorithm and transmitted via ARGOS (SMRU format)}
+\item{dive}{A dive profile summarized by a Broken Stick Algorithm
+and transmitted via ARGOS (SMRU format)}
 
 \item{retrieve}{character determining what we want to have returned of: \cr
 \itemize{
@@ -18,11 +19,26 @@ RBSM(dive, retrieve = "order")
 }}
 }
 \value{
-the exact content will depended on the flag used with retrieve (see above). The returned values are stored in a vector. If more than one outcome is requested via both, minresid will be of class character
+the exact content will depended on the flag used with
+    retrieve (see above). The returned values are stored in a
+    vector. If more than one outcome is requested via both,
+    minresid will be of class character
 }
 \description{
-Function to retrieve latent variables of the BSM (values that were generated onboard the tag but has not been transmitted)
+Function to retrieve latent variables of the BSM (values that were
+generated onboard the tag but has not been transmitted)
 }
 \details{
-This function is based on the recursively application of linear models through each summarized dive to get the order in which the inflection points have been selected by the BSM. This function,if requested, will return the smallest residual that may or may not be the residual of the last point. It usually is, but not always. This functions works at dive level, and asume some naming conventions  from the SMRU generated files. The column names requested are: D1,D2,D3,D4,T1,T2,T3,T4 and DIVE_DUR. This funcion is not intended to be used directly by an end user, but if needed to be applied directly trough a data.frame object, function RBSM should be called via apply if want to be applied to a full data.frame.
+This function is based on the recursively application of linear
+models through each summarized dive to get the order in which the
+inflection points have been selected by the BSM. This function,if
+requested, will return the smallest residual that may or may not
+be the residual of the last point. It usually is, but not
+always. This functions works at dive level, and asume some naming
+conventions from the SMRU generated files. The column names
+requested are: D1,D2,D3,D4,T1,T2,T3,T4 and DIVE_DUR. This funcion
+is not intended to be used directly by an end user, but if needed
+to be applied directly trough a data.frame object, function RBSM
+should be called via apply if want to be applied to a full
+data.frame.
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{ele}
 \alias{ele}
-\title{Pre-processed seal}
+\title{elephant seal pre-processed dataset}
 \format{A data frame with 53940 rows and 10 variables:
 \describe{
   \item{BOTTOM}{bathymetry}
@@ -63,6 +63,9 @@
 ele
 }
 \description{
-An example of a seal dataset as tipically provided by SMRU tags
+An example of a seal dataset as tipically provided by SMRU
+tags. There are slight differences between datasets from SMRU
+tags. Some variables may be lower or upper case in different data
+sets.
 }
 \keyword{datasets}

@@ -4,19 +4,25 @@
 \alias{formatDives}
 \title{formatDives}
 \usage{
-formatDives(Data)
+formatDives(Data, format)
 }
 \arguments{
 \item{Data}{an object of class daata.frame}
 }
 \value{
-a data.frame containing a subset of the variables needed to keep processing the data.frame
+a data.frame containing a subset of the variables needed
+    to keep processing the data.frame
 }
 \description{
-function that makes a subset of variables with some recoding and dive removal for filtering purposes
+Function that takes a subset of variables and do some recoding and
+dive removal for filtering purposes
 }
 \details{
-This functions keeps the variables needed to apply the subsequents procedures of this package.
-It will make the date of class POSIXct if supplied as a factor and will make the ref (id of the tag) of type character. it also sort the rows by tag id (ref) and by date (Date).
-It also removes dives shallower than 100 meter depth and shorter than 300 seconds.
+This functions keeps the variables needed to apply the subsequents
+procedures of this package.  It will make the Date of class
+\code{POSIXct} if supplied as a factor and will make the
+\code{ref} (id of the tag) of type character. It also sorts the
+rows by \code{ref} and by \code{Date}.  It also removes any
+duplicated dive and those not reaching 100 meter depth and shorter
+than 300 seconds.
 }

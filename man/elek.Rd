@@ -10,7 +10,7 @@
   \item{model}{model definition}
   \item{kalman}{kalman expression}
   \item{mns}{summaries}
-  \item{duration}{length of the run}
+  \item{duration}{The time it took to fit the model}
   \item{burn.in}{burn.in length, in iterations}
 ...
 }}
@@ -21,6 +21,7 @@
 elek
 }
 \description{
-An example of a seal dataset as tipically provided by SMRU tags
+The seal dataset (ele) provided in slimmingDive after being fully
+processed by slimmingDive (before aplying the postKalman function)
 }
 \keyword{datasets}
