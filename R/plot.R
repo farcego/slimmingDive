@@ -33,9 +33,8 @@ BGC <- function(col = 'bisque', alpha = 1){
 ##'     function
 ##' @return a plot of the drift rate time series.
 plotDrift <- function(Data, ID = FALSE, ...){
-    Yys <- round(cumsum(c(0,diff(Data$Date, , units = 'days')))/1440, 1)
-    plot(Yys, Data$NDE, col = 'black', panel.first = BGC(), ylim = c(-.45,.3),
-         bg = adjustcolor('cornflowerblue', .9), pch = 21, ...)
+    plot(Data$Date, Data$NDE, col = 'black', panel.first = BGC(), ylim = c(-.45,.3),
+         bg = adjustcolor('cornflowerblue', .9), pch = 21, xlim = c(min(Data$Date), min(Data$Date) + 86400*320), ...)
     if (ID){
         text(245/2, .25, unique(Data$ref), cex = 2.5)
         mtext(c('-0.2', '0', '0.2'), line = .2, side = 2,
