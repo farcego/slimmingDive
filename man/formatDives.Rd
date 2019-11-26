@@ -26,3 +26,7 @@ rows by \code{ref} and by \code{Date}.  It also removes any
 duplicated dive and those not reaching 100 meter depth and shorter
 than 300 seconds.
 }
+\examples{
+data(ele)
+formatDives(ele)
+}
