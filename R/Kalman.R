@@ -138,6 +138,8 @@ postKalman <- function(Data){
     return(output)
 }
 
+
+
 ##' Function to parallelise the Kalman filter
 ##'
 ##' in progress. This function needs still a proper way to process the
@@ -147,22 +149,23 @@ postKalman <- function(Data){
 ##' @param Data a data set to be kalmaned
 ##' @return work in progress
 parallelKalman <- function(Data=Data){
-    Data <<- Data
+    DKALP <<- Data
+    DKALP <- Data
     cl <- parallel::makeCluster(3)
     parallel::clusterExport(cl, c('kalman','data','jags.model','coda.samples'))
     cores <- seq_along(cl)
     r <- parallel::clusterApply(cl[cores], cores, function(core) {
         if (core == 1) {
-            o1 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000,n.chains=1)
+            o1 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000,n.chains=1)
         } else if (core == 2) {
-            o2 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+            o2 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
         }
          else if (core == 3) {
-            o3 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+            o3 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
         }
     })
     parallel::stopCluster(cl)
     rm(cl)
-    rm(Data, envir=.GlobalEnv)
+    rm(DKALP, envir=.GlobalEnv)
     return(r)
 }
