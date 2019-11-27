@@ -83,7 +83,7 @@ step:
 
 ```{r }
 plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate',
-          xlim = c(-10, 245), cex.lab = 1.5, cex = 2)
+         cex.lab = 1.5, cex = 2)
 ```
 
 to get ride of those that are certainly non drift dives, we pass a
@@ -97,7 +97,7 @@ And we can see again how the drifting trajectory looks like:
 
 ```{r }
 plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', cex.lab = 1.5, cex = 2,
-          xlim = c(-10, 245))
+          )
 ```
 
 A pattern aroses, but a last step is required to filter the
@@ -118,11 +118,11 @@ D2 <- postKalman(elek)
 ## select the Drift dives
 D2 <- D2[D2$zetas > .99, ]
 
-plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate', xlim = c(-10, 245))
+plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate')
 
 
 
 plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
-          ylab = 'Drift rate', xlim = c(-10, 245))
+          ylab = 'Drift rate')
 
 ```
