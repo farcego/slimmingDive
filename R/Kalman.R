@@ -14,10 +14,15 @@
 ##' @param n.chains number of chains to be drawn.
 ##' @param n.adapt adaption length (for jags performance)
 ##' @param list Logical, if the object is a list or not
+##' @param parallel logical. if TRUE, it will run 3 chains in three
+##'     different cores of the local machine.
 ##' @return an object of class 'list' that includes: 1) the original
 ##'     dataset (plus some remaping of variables), the model (a jags
 ##'     object), the output etc...
-kalman <- function(Data, update=400000, n.iter=10000, n.chains=3, n.adapt=1000, list=FALSE){
+kalman <- function(Data, update=400000, n.iter=10000, n.chains=3,
+                   n.adapt=1000, list=FALSE, parallel = FALSE){
+    if (parallel)
+        return(parallelKalman(Data))
     if (list){ Data <- Data[[1]] }
     Data <- Data[order(Data$Date),]
     Data$time <- (as.numeric(Data$Date)-as.numeric(min(Data$Date)))/3600
@@ -133,3 +138,31 @@ postKalman <- function(Data){
     return(output)
 }
 
+##' Function to parallelise the Kalman filter
+##'
+##' in progress. This function needs still a proper way to process the
+##' output. It whould at some point be mixed as there are three kalman
+##' instances. By using three cores, the coptutation time is reduced to half
+##' @title parallelised version of the Kalman filter.
+##' @param Data a data set to be kalmaned
+##' @return work in progress
+parallelKalman <- function(Data=Data){
+    Data <<- Data
+    cl <- parallel::makeCluster(3)
+    parallel::clusterExport(cl, c('kalman','data','jags.model','coda.samples'))
+    cores <- seq_along(cl)
+    r <- parallel::clusterApply(cl[cores], cores, function(core) {
+        if (core == 1) {
+            o1 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000,n.chains=1)
+        } else if (core == 2) {
+            o2 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+        }
+         else if (core == 3) {
+            o3 <- kalman(Data,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+        }
+    })
+    parallel::stopCluster(cl)
+    rm(cl)
+    rm(Data, envir=.GlobalEnv)
+    return(r)
+}
