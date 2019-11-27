@@ -1,7 +1,7 @@
 Package: slimmingDive
 Type: Package
 Title: Flexible, Hierarchical Selection of Drift Dives
-Version: 0.1.0.2
+Version: 0.1.0.3
 Authors@R: c(person("Fer", "Arce", email = "farcego@gmail.com", role = c("aut", "cre")),
 	   person("Sophie", "Bestley", email = "sophie.bestley@utas.edu.au", role = "ctb"),
 	   person("Clive", "McMahon", email = "clive.mcmahon@utas.edu.au", role = "ctb"),
