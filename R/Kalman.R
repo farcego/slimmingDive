@@ -158,12 +158,12 @@ parallelKalman <- function(Data=Data){
     cores <- seq_along(cl)
     r <- parallel::clusterApply(cl[cores], cores, function(core) {
         if (core == 1) {
-            o1 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000,n.chains=1)
+            o1 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000,n.chains=1)
         } else if (core == 2) {
-            o2 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+            o2 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000, n.chains=1)
         }
          else if (core == 3) {
-            o3 <- kalman(DKALP,update=100000, n.iter=10000, n.adap=1000, n.chains=1)
+            o3 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000, n.chains=1)
         }
     })
     parallel::stopCluster(cl)
