@@ -140,6 +140,8 @@ postKalman <- function(Data){
 
 
 
+## de momento parece que hay que cargar la libreria jags
+
 ##' Function to parallelise the Kalman filter
 ##'
 ##' in progress. This function needs still a proper way to process the
