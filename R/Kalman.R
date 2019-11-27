@@ -130,6 +130,10 @@ updateKalman <- function(data,update=100000,n.iter=1000, recompile = FALSE){
 ##'     function Kalman (and or updateKalman)
 ##' @return an object of class \code{data.frame}
 postKalman <- function(Data){
+    if (attr(D2, 'update.type') == 'kalman.parallel')
+        Data <- list(Data = D2[[1]][[1]], model = D2[[1]][[2]],
+                     kalman = list(D2[[1]][[3]],D2[[2]][[3]], D2[[3]][[3]]),
+                     mns = D2[[1]][[4]], duration = D2[[1]][[5]], brun.in = D2[[1]][[6]])
     ## Data must be a list
     output <- Data[[1]]
     values <- rowMeans(Data[[4]])
@@ -159,12 +163,12 @@ parallelKalman <- function(Data=Data){
     cores <- seq_along(cl)
     r <- parallel::clusterApply(cl[cores], cores, function(core) {
         if (core == 1) {
-            o1 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000,n.chains=1)
+            o1 <- kalman(DKALP,update=400000, n.iter=10000, n.adapt=1000,n.chains=1)
         } else if (core == 2) {
-            o2 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000, n.chains=1)
+            o2 <- kalman(DKALP,update=400000, n.iter=10000, n.adapt=1000, n.chains=1)
         }
          else if (core == 3) {
-            o3 <- kalman(DKALP,update=100000, n.iter=10000, n.adapt=1000, n.chains=1)
+            o3 <- kalman(DKALP,update=400000, n.iter=10000, n.adapt=1000, n.chains=1)
         }
     })
     parallel::stopCluster(cl)
