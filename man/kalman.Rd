@@ -5,7 +5,7 @@
 \title{Function for applying a Kalman filter to the drift dives}
 \usage{
 kalman(Data, update = 4e+05, n.iter = 10000, n.chains = 3,
-  n.adapt = 1000, list = FALSE)
+  n.adapt = 1000, list = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{Data}{An object of class 'data.frame' that needs to include
@@ -20,6 +20,9 @@ at least date and drift rate}
 \item{n.adapt}{adaption length (for jags performance)}
 
 \item{list}{Logical, if the object is a list or not}
+
+\item{parallel}{logical. if TRUE, it will run 3 chains in three
+different cores of the local machine.}
 }
 \value{
 an object of class 'list' that includes: 1) the original
