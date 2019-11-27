@@ -83,6 +83,7 @@ model {
                 mns = mns, duration = duration, burn.in = update )
     
     ## cat('\n\n\n','time duration : ', duration, '\n\n\n')
+    attr(res, 'update.type') <- 'kalman.single'
     return(res)
     
 }
@@ -169,5 +170,7 @@ parallelKalman <- function(Data=Data){
     parallel::stopCluster(cl)
     rm(cl)
     rm(DKALP, envir=.GlobalEnv)
+    attr(r, 'update.type') <- 'kalman.parallel'
     return(r)
 }
+
