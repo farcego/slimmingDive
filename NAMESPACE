@@ -3,6 +3,14 @@ importFrom("graphics", "abline", "clip", "hist", "layout", "plot",
 importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var", "complete.cases")
 importFrom("utils", "read.csv")
 importFrom("grDevices", "adjustcolor")
-exportPattern("^[^\\.]")
+export(driftFilter)
+export(formatDives)
+export(kalman)
+export(NDE)
+export(newVarsVect)
+export(plotDrift)
+export(postKalman)
+export(RBSM)
+export(updateKalman)
 
 
