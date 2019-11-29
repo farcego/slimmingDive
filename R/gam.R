@@ -23,12 +23,14 @@ SingleDay <- function(test, date = 'date'){
     return(test)
 }
 
-##' Function for breaking the drift trajectories on the basis of lack of data, not haul outs
+##' Function for breaking the drift trajectories on the basis of lack
+##' of data, not haul outs, for making periods and better fit
+##' smoothing functions
 ##'
-##' .. content for \details{} ..
+##' It creates 
 ##' @title 
-##' @param test 
-##' @param days 
+##' @param test a post-processed seal
+##' @param days ammount of days without drift dives
 ##' @return 
 ##' @author Fer Arce
 MakePeriods <- function(test, days = 5){
