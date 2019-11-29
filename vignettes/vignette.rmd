@@ -114,15 +114,15 @@ data(elek)
 
 
 
-D2 <- postKalman(elek)
-## select the Drift dives
-D2 <- D2[D2$zetas > .99, ]
+## D2 <- postKalman(elek)
+## ## select the Drift dives
+## D2 <- D2[D2$zetas > .99, ]
 
-plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate')
+## plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate')
 
 
 
-plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
-          ylab = 'Drift rate')
+## plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
+##           ylab = 'Drift rate')
 
 ```
