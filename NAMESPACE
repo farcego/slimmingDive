@@ -1,6 +1,6 @@
 importFrom("graphics", "abline", "clip", "hist", "layout", "plot",
              "points", "text", "par","axis", "mtext", "rect")
-importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var", "complete.cases")
+importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var", "complete.cases", "predict")
 importFrom("utils", "read.csv")
 importFrom("grDevices", "adjustcolor")
 export(driftFilter)
