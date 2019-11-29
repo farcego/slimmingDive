@@ -1,5 +1,5 @@
-library(slimmingDive)
-source('linkFun.R')
+## library(slimmingDive)
+## source('R/linkFun.R')
 
 
 
@@ -83,68 +83,6 @@ MakeTheGam <- function(test, plot=TRUE){
 
 
 
-data(elek)
-
-Data <- postKalman(elek)
-if('data.frame' %in% class(Data))
-    Data <- list(Data)
-
-for(i in 1:length(Data)){
-    Data[[i]] <- Data[[i]][order(Data[[i]]$Date), ]
-    Data[[i]] <- Data[[i]][!duplicated(Data[[i]]$Date), ]
-}
-Data <- lapply(Data, daysTemp)
-
-## works with lists
-Data <- PostKalProc(Data, zeta = .5)
 
 
-Gams <- list()
-for(i in 1:length(Data)){
-    test <- Data[[i]]
-    ## test <- Data[[i]]
-    ## foca <- unique(test$ref)
-    ## ts <- min(test$date)
-    ## test$d <- test$fday - min(test$fday)
-    ## test$dd <- floor(test$d)
-    ## ##foca <- unique(test$ref)
-    ## inicio <- min(test$date)
-    test$rate <- test$NDE
-    test$time <- test$day
-    test <- split(test, test$periods)
-    minm = 10
-    test <- test[sapply(test, nrow) > minm]
-    ## test$Date is the good date
-    Gamss <- lapply(test, MakeTheGam)
-    for (l in 1:length(Gamss)){
-        Gamss[[l]]$ref <- foca
-        ## Gamss[[l]]$date <- inicio +Gamss[[l]]$time*86400
-        Gamss[[l]]$dif <- c(NA, diff(Gamss[[l]]$pred))
-    }
-    Gams <- c(Gams, list(Gamss))
-}
 
-str(gams)
-
-
-gams <- Gams[[1]]
-
-st <- min(gams[[1]]$Date)
-
-plot(0,0, col = 'white', ylim = c(-.45,.3), xlim = c(st, st + 360*86400))
-
-
-po <- do.call(rbind, Data)
-
-plot(as.numeric(po$Date), po$NDE, ylim = c(-.45, .2))
-lapply(gams, function(fo) points(fo$Date, fo$pred, lwd = 4, lty = 1,type = 'l', col = 'red'))
-
-
-g <- list()
-for(i in 1:length(Gams)){
-    g[[i]] <-  do.call(rbind, Gams[[i]])
-}
-
-g <- g[[1]]
-
-plot(g$pred, g$date)
