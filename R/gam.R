@@ -66,7 +66,6 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 
 
 MakeTheGam <- function(test, plot=TRUE){
-    library(gam)
     fit <- gam(rate ~ s(Date), data=test,
                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
     ##     DtPred <- readRDS(paste(paste('~/phd/data/bsam/',deploy,'/',deploy,'_hbsam_full_0.25.RDS', sep = '')))
