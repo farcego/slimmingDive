@@ -131,9 +131,9 @@ updateKalman <- function(data,update=100000,n.iter=1000, recompile = FALSE){
 ##' @return an object of class \code{data.frame}
 postKalman <- function(Data){
     if (attr(Data, 'update.type') == 'kalman.parallel') {
-        Data <- list(Data = D2[[1]][[1]], model = D2[[1]][[2]],
-                     kalman = list(D2[[1]][[3]],D2[[2]][[3]], D2[[3]][[3]]),
-                     mns = D2[[1]][[4]], duration = D2[[1]][[5]], brun.in = D2[[1]][[6]])
+        Data <- list(Data = Data[[1]][[1]], model = Data[[1]][[2]],
+                     kalman = list(Data[[1]][[3]],Data[[2]][[3]], Data[[3]][[3]]),
+                     mns = Data[[1]][[4]], duration = Data[[1]][[5]], brun.in = Data[[1]][[6]])
     }
     ## Data must be a list
     output <- Data[[1]]
