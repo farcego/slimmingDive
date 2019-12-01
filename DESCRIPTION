@@ -10,10 +10,11 @@ Authors@R: c(person("Fer", "Arce", email = "farcego@gmail.com", role = c("aut", 
 	   )
 Description: Package slimingDive contains a set of function for detect and filter drift dives from elephant seal dive profiles summarized by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by the Australian Integrated Marine Observing System (IMOS). It has been already tested also with Northen elephant seals providing sensible output. 
 Maintainer: Fer Arce <farcego@gmail.com>
-Depends: R (>= 3.3.0)
-Imports:
-	rjags,
+Depends:
+	R (>= 3.3.0),
 	gam
+Imports:
+	rjags
 License: GPL-3 + file LICENSE
 SystemRequirements: JAGS (>= 4.2.0)
 URL: https://github.com/farcego/slimmingDive
