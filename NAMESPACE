@@ -3,6 +3,7 @@ importFrom("graphics", "abline", "clip", "hist", "layout", "plot",
 importFrom("stats", "lm", "median", "sd", "cor.test", "spline", "var", "complete.cases", "predict")
 importFrom("utils", "read.csv")
 importFrom("grDevices", "adjustcolor")
+importFrom("gam", "gam")
 export(driftFilter)
 export(formatDives)
 export(kalman)
@@ -12,5 +13,6 @@ export(plotDrift)
 export(postKalman)
 export(RBSM)
 export(updateKalman)
+export(MakeTheGam2)
 
 
