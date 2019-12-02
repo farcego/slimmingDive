@@ -17,11 +17,9 @@ makeTheGam(Data, dates = NULL, zetas = 0.5)
 a list with predicted values
 }
 \description{
-function for fit the gam
+function for fitting a gam with a custom link function
 }
 \details{
-function for fitting a gam with a custom link function
-
 comming soon
 }
 \author{
