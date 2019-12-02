@@ -48,7 +48,6 @@ MakePeriods <- function(test, days = 5){
 
 
 PostKalProc <- function(Data, days = 10, zeta = 0.5){
-    ##'%out%' <- Negate('%in%')
     Data <- lapply(Data, function(fo) fo <- fo[fo$zetas > zeta, ])
     keep <- sapply(Data, nrow)
     Data <- Data[keep > 20]
@@ -58,7 +57,6 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
     }
     )
     Data <- lapply(Data, SingleDay, date = 'date')
-    ##Data <- lapply(Data, makeDate)
     Data <- lapply(Data, MakePeriods, days = days) # here is for changing days for breaking periods
     sapply(Data, function(fo) max(fo$periods))
     return(Data)
@@ -89,25 +87,70 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 
 ##' function for fit the gam
 ##'
-##' in progress
-##' @title Make The Gam
-##' @param test a drift rate trajectory 
-##' @param dates the exact dates to get gam predictions. if not specified, it will do it every six hours
-##' @return predicted GAM
+## ##' in progress
+## ##' @title Make The Gam
+## ##' @param test a drift rate trajectory 
+## ##' @param dates the exact dates to get gam predictions. if not specified, it will do it every six hours
+## ##' @return predicted GAM
+## ##' @author Fer Arce
+## MakeTheGam <- function(test, dates = NULL){
+##     fit <- gam(rate ~ s(Date), data=test,
+##                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
+##     if (is.null(dates)){
+##         new <- data.frame(Date = seq(min(test$Date), max(test$Date), by = 60*60*6))
+##     } else {
+##         DtPred <- dates[dates >= min(test$Date) & dates <= max(test$Date)]
+##         new <- data.frame(Date = DtPred)
+##     }
+##     out <- predict(fit,newdata = new, type="response")
+##     outd <- data.frame(pred=as.numeric(out), time=new)
+##     ##plot(rate~time, data=d,pch=16,cex=1,ylab="Rate",xlab="Hours",ylim=c(-.4,.4))
+##     return(outd)
+## }
+
+##' function for fitting a gam with a custom link function
+##'
+##' comming soon
+##' @title make The Gam
+##' @param Data drifta
+##' @param dates dates
+##' @param zetas zetas
+##' @return a list with predicted values
 ##' @author Fer Arce
-MakeTheGam <- function(test, dates = NULL){
-    fit <- gam(rate ~ s(Date), data=test,
-               family=drift(M0=100,V0=90,a=1.2,link="dragp"))
-    if (is.null(dates)){
-        new <- data.frame(Date = seq(min(test$Date), max(test$Date), by = 60*60*6))
-    } else {
-        DtPred <- dates[dates >= min(test$Date) & dates <= max(test$Date)]
-        new <- data.frame(Date = DtPred)
+makeTheGam <- function(Data, dates = NULL, zetas = .5){
+    
+    if('data.frame' %in% class(Data))
+        Data <- list(Data)
+
+    for(i in 1:length(Data)){
+        Data[[i]] <- Data[[i]][order(Data[[i]]$Date), ]
+        Data[[i]] <- Data[[i]][!duplicated(Data[[i]]$Date), ]
     }
-    out <- predict(fit,newdata = new, type="response")
-    outd <- data.frame(pred=as.numeric(out), time=new)
-    ##plot(rate~time, data=d,pch=16,cex=1,ylab="Rate",xlab="Hours",ylim=c(-.4,.4))
-    return(outd)
+    Data <- lapply(Data, slimmingDive:::daysTemp)
+
+    ## works with lists
+    Data <- slimmingDive:::PostKalProc(Data, zeta = zetas)
+
+    ##    dateS <- seq(min(test[[1]]$Date), max(test[[3]]$Date), by = 60*60*12)
+
+    Gams <- list()
+    for(i in 1:length(Data)){
+        test <- Data[[i]]
+        test$rate <- test$NDE
+        test$time <- test$day
+        test <- split(test, test$periods)
+        minm = 10
+        test <- test[sapply(test, nrow) > minm]
+        ## test$Date is the good date
+        ## need to set up a new dates for test
+        Gamss <- lapply(test, slimmingDive::MakeTheGam2, dates = dates)
+        for (l in 1:length(Gamss)){
+            ##Gamss[[l]]$ref <- foca          #
+            ## Gamss[[l]]$date <- inicio +Gamss[[l]]$time*86400
+            Gamss[[l]]$dif <- c(NA, diff(Gamss[[l]]$pred))
+        }
+        Gams <- c(Gams, list(Gamss))
+    }
+    Gams <- Gams[[1]]
+    return(Gams)
 }
-
-
