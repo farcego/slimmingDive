@@ -83,8 +83,6 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 ## function in progress
 
 
-## I removed the 2 of the next function as it will be defined as
-
 MakeTheGam <- function(test, dates = NULL){
     fit <- gam(rate ~ s(Date), data=test,
                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
