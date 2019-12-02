@@ -28,10 +28,10 @@ SingleDay <- function(test, date = 'date'){
 ##' smoothing functions
 ##'
 ##' It creates 
-##' @title 
+##' @title Make Periods
 ##' @param test a post-processed seal
 ##' @param days ammount of days without drift dives
-##' @return 
+##' @return periods
 ##' @author Fer Arce
 MakePeriods <- function(test, days = 5){
     test$periods <- 1
@@ -65,25 +65,49 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 }
 
 
-MakeTheGam <- function(test, plot=TRUE){
+## MakeTheGam <- function(test, plot=TRUE){
+##     fit <- gam(rate ~ s(Date), data=test,
+##                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
+##     ##     DtPred <- readRDS(paste(paste('~/phd/data/bsam/',deploy,'/',deploy,'_hbsam_full_0.25.RDS', sep = '')))
+##     ## DtPred <- DtPred[[1]]
+##     ## DtPred <- as.data.frame(DtPred)
+##     ## DtPred$ref <- as.character(DtPred$id)
+##     ## DtPred <- DtPred[DtPred$ref == unique(test$ref),]
+##     ## DtPred <- DtPred[DtPred$date >= min(test$Date) & DtPred$date <= max(test$Date), ]
+##     ## new <- data.frame(Date = DtPred$date)
+##     new <- data.frame(Date = seq(min(test$Date), max(test$Date), by = 60*60*6))
+##     out <- predict(fit,newdata = new, type="response")
+##     outd <- data.frame(pred=as.numeric(out), time=new)
+##     ##plot(rate~time, data=d,pch=16,cex=1,ylab="Rate",xlab="Hours",ylim=c(-.4,.4))
+##     return(outd)
+## }
+
+## function in progress
+
+
+## I removed the 2 of the next function as it will be defined as
+
+##' function for fit the gam
+##'
+##' in progress
+##' @title Make The Gam
+##' @param test a drift rate trajectory 
+##' @param dates the exact dates to get gam predictions. if not specified, it will do it every six hours
+##' @return predicted GAM
+##' @author Fer Arce
+MakeTheGam <- function(test, dates = NULL){
     fit <- gam(rate ~ s(Date), data=test,
                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
-    ##     DtPred <- readRDS(paste(paste('~/phd/data/bsam/',deploy,'/',deploy,'_hbsam_full_0.25.RDS', sep = '')))
-    ## DtPred <- DtPred[[1]]
-    ## DtPred <- as.data.frame(DtPred)
-    ## DtPred$ref <- as.character(DtPred$id)
-    ## DtPred <- DtPred[DtPred$ref == unique(test$ref),]
-    ## DtPred <- DtPred[DtPred$date >= min(test$Date) & DtPred$date <= max(test$Date), ]
-    ## new <- data.frame(Date = DtPred$date)
-    new <- data.frame(Date = seq(min(test$Date), max(test$Date), by = 60*60*6))
+    if (is.null(dates)){
+        new <- data.frame(Date = seq(min(test$Date), max(test$Date), by = 60*60*6))
+    } else {
+        DtPred <- dates[dates >= min(test$Date) & dates <= max(test$Date)]
+        new <- data.frame(Date = DtPred)
+    }
     out <- predict(fit,newdata = new, type="response")
     outd <- data.frame(pred=as.numeric(out), time=new)
     ##plot(rate~time, data=d,pch=16,cex=1,ylab="Rate",xlab="Hours",ylim=c(-.4,.4))
     return(outd)
 }
-
-
-
-
 
 
