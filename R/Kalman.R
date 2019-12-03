@@ -4,8 +4,8 @@
 ##' This functions is a wrap to a kalman filter implemented in jags
 ##' (Just another Gibs sampler).  It is a bit slow as it requires
 ##' require long chains. Current set up is a burn in of 400.000
-##' iterations.  There is a version that can paralelize the chains and
-##' take advantage of multicore processors
+##' iterations. The chains can be run in parallel. if parallel is set
+##' to TRUE, it will run three chains, each one in a different core
 ##' @title Function for applying a Kalman filter to the drift dives
 ##' @param Data An object of class 'data.frame' that needs to include
 ##'     at least date and drift rate
@@ -13,17 +13,15 @@
 ##' @param n.iter posterior drawn length.
 ##' @param n.chains number of chains to be drawn.
 ##' @param n.adapt adaption length (for jags performance)
-##' @param list Logical, if the object is a list or not
 ##' @param parallel logical. if TRUE, it will run 3 chains in three
 ##'     different cores of the local machine.
 ##' @return an object of class 'list' that includes: 1) the original
 ##'     dataset (plus some remaping of variables), the model (a jags
 ##'     object), the output etc...
 kalman <- function(Data, update=400000, n.iter=10000, n.chains=3,
-                   n.adapt=1000, list=FALSE, parallel = FALSE){
+                   n.adapt=1000, parallel = FALSE){
     if (parallel)
         return(parallelKalman(Data))
-    if (list){ Data <- Data[[1]] }
     Data <- Data[order(Data$Date),]
     Data$time <- (as.numeric(Data$Date)-as.numeric(min(Data$Date)))/3600
     requireNamespace('rjags')
