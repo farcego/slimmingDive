@@ -23,16 +23,7 @@ SingleDay <- function(test, date = 'date'){
     return(test)
 }
 
-##' Function for breaking the drift trajectories on the basis of lack
-##' of data, not haul outs, for making periods and better fit
-##' smoothing functions
-##'
-##' It creates 
-##' @title Make Periods
-##' @param test a post-processed seal
-##' @param days ammount of days without drift dives
-##' @return periods
-##' @author Fer Arce
+
 MakePeriods <- function(test, days = 5){
     test$periods <- 1
     ##if(nrow(test) < 10) next
@@ -99,13 +90,15 @@ MakeTheGam <- function(test, dates = NULL){
 }
 
 
-## check how data is imported- exported
 
 
 ##' function for fitting a gam with a custom link function
 ##'
-##' comming soon
-##' @title make The Gam
+##' This function fit a gam with a custom link function. It allows to
+##' get estimates of Drift rate at any given time, provided that the
+##' seal is drifting. This function may break the drifting trajectory
+##' into sub-units on the basis of lack of Drift dives.
+##' @title makeTheGam
 ##' @param Data drifta
 ##' @param dates dates
 ##' @param zetas zetas
