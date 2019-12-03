@@ -98,6 +98,10 @@ MakeTheGam <- function(test, dates = NULL){
     return(outd)
 }
 
+
+## check how data is imported- exported
+
+
 ##' function for fitting a gam with a custom link function
 ##'
 ##' comming soon
