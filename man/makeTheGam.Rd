@@ -2,7 +2,7 @@
 % Please edit documentation in R/gam.R
 \name{makeTheGam}
 \alias{makeTheGam}
-\title{make The Gam}
+\title{makeTheGam}
 \usage{
 makeTheGam(Data, dates = NULL, zetas = 0.5)
 }
@@ -20,7 +20,10 @@ a list with predicted values
 function for fitting a gam with a custom link function
 }
 \details{
-comming soon
+This function fit a gam with a custom link function. It allows to
+get estimates of Drift rate at any given time, provided that the
+seal is drifting. This function may break the drifting trajectory
+into sub-units on the basis of lack of Drift dives.
 }
 \author{
 Fer Arce
