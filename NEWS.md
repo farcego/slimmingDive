@@ -1,5 +1,6 @@
 # slimmingDive 0.2.0
-* parallel chains for the Kalman filter allowed
+* Parallel execution of the Kalman filter is allowed
+* GAM with a custom link function is implemented
 # slimmingDive 0.1.0.3
 * It pases R CMD check --as-cran
 # slimmingDive 0.1.0.2
