@@ -35,11 +35,13 @@ directly from GitHub as it is not (yet) in CRAN
 
 ```R
 ## install.packages("remotes")
-remotes::install_github("farcego/slimmingDive")
+## remotes::install_github("farcego/slimmingDive")
 ```
 
 Alternatively, you can download this git repo to your machine and
-install it using your prefered procedures
+build the package trough 
+
+$ R CMD build --resave-data slimmingDive
 
 
 ## Citation
