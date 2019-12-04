@@ -1,4 +1,3 @@
-
 ##' Function for running a kalman filter to a subset of potential drift dives.
 ##'
 ##' This functions is a wrap to a kalman filter implemented in jags
@@ -129,6 +128,7 @@ updateKalman <- function(data,update=100000,n.iter=1000, recompile = FALSE){
 ##'     function Kalman (and or updateKalman)
 ##' @return an object of class \code{data.frame}
 postKalman <- function(Data){
+    stopifnot('kalman' %in% class(Data))
     if (attr(Data, 'update.type') == 'kalman.parallel') {
         Data <- list(Data = Data[[1]][[1]], model = Data[[1]][[2]],
                      kalman = list(Data[[1]][[3]],Data[[2]][[3]], Data[[3]][[3]]),
@@ -158,10 +158,10 @@ postKalman <- function(Data){
 parallelKalman <- function(Data=Data){
     DKALP <<- Data
     DKALP <- Data
-    cl <- parallel::makeCluster(3)
-    parallel::clusterExport(cl, c('kalman','data','jags.model','coda.samples'))
+    cl <- makeCluster(3)
+    clusterExport(cl, c('kalman','data','jags.model','coda.samples'))
     cores <- seq_along(cl)
-    r <- parallel::clusterApply(cl[cores], cores, function(core) {
+    r <- clusterApply(cl[cores], cores, function(core) {
         if (core == 1) {
             o1 <- kalman(DKALP,update=400000, n.iter=10000, n.adapt=1000,n.chains=1)
         } else if (core == 2) {
@@ -171,7 +171,7 @@ parallelKalman <- function(Data=Data){
             o3 <- kalman(DKALP,update=400000, n.iter=10000, n.adapt=1000, n.chains=1)
         }
     })
-    parallel::stopCluster(cl)
+    stopCluster(cl)
     rm(cl)
     rm(DKALP, envir=.GlobalEnv)
     attr(r, 'update.type') <- 'kalman.parallel'
