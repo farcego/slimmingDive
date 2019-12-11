@@ -17,7 +17,7 @@ an object of class \code{data.frame}
 Function for post-processing kalman objects
 }
 \details{
-This functions extrac the newly generated mu's and zetas and place
-them into the original Data frame, and return a simple data frame
-to keep processing
+This functions extrac the mus and zetas from the \code{kalman}
+output and place them into the \code{data.frame} used by the
+\code{kalman} function
 }
