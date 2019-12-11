@@ -96,8 +96,7 @@ D1 <- driftFilter(D1)
 And we can see again how the drifting trajectory looks like:
 
 ```{r }
-plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', cex.lab = 1.5, cex = 2,
-          )
+plotDrift(D1, xlab = 'foraging days', ylab = 'Drift rate', cex.lab = 1.5, cex = 2)
 ```
 
 A pattern aroses, but a last step is required to filter the
@@ -112,17 +111,36 @@ cames cames as a list:
 
 data(elek)
 
+attr(elek, 'update.type') <- 'kalman.single'
 
 
-## D2 <- postKalman(elek)
-## ## select the Drift dives
-## D2 <- D2[D2$zetas > .99, ]
+D2 <- postKalman(elek)
+## At this point, we need to set a zeta threshold (Z = probability of
+## a given drift rate being in the drifting trajectory of the
+## seal. Most of the case, any value above 0.5 will yield indeitcal or
+## close to identical results, as the distribution oz Z is storngly
+## bimodal towards either 0 or 1. If there is going to be some
+## smoothiing afterwards, I would guess that any value above 0.5
+## should yield practical identiocal fits
+D2 <- D2[D2$zetas > .5, ]
+D2 <- D2[D2$zetas > .6, ]
+D2 <- D2[D2$zetas > .7, ]
+D2 <- D2[D2$zetas > .8, ]
+D2 <- D2[D2$zetas > .9, ]
+plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
+          ylab = 'Drift rate')
 
-## plotDrift(D2, xlab = 'foraging days', ylab = 'Drift rate')
+
+## And now we make the gam
+
+D3 <- makeTheGam(D2)
 
 
 
-## plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
-##           ylab = 'Drift rate')
+
+plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
+          ylab = 'Drift rate')
+lapply(D3, function(fo){points(fo$Date, fo$pred, type = 'l', col = 'firebrick', lwd = 7)})
+
 
 ```
