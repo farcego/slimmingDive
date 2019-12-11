@@ -4,3 +4,5 @@
 .Rhistory
 test/
 TODO.org
+*.png
+*.html
