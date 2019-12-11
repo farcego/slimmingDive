@@ -38,6 +38,8 @@ Load the package and the build-in data:
 library(slimmingDive)
 
 data(ele)
+
+
 ```
 
 These type of datasets tipically contain a large number of columns,
@@ -111,9 +113,11 @@ cames cames as a list:
 
 data(elek)
 
-attr(elek, 'update.type') <- 'kalman.single'
+## class(elek) <- append(class(elek), 'kalman')
+```
 
-
+```{r }
+load('~/Dropbox/phdD/package/slimmingDive/data/elek.RData')
 D2 <- postKalman(elek)
 ## At this point, we need to set a zeta threshold (Z = probability of
 ## a given drift rate being in the drifting trajectory of the
@@ -122,25 +126,29 @@ D2 <- postKalman(elek)
 ## bimodal towards either 0 or 1. If there is going to be some
 ## smoothiing afterwards, I would guess that any value above 0.5
 ## should yield practical identiocal fits
+```
+```{r }
 D2 <- D2[D2$zetas > .5, ]
-D2 <- D2[D2$zetas > .6, ]
-D2 <- D2[D2$zetas > .7, ]
-D2 <- D2[D2$zetas > .8, ]
-D2 <- D2[D2$zetas > .9, ]
 plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
           ylab = 'Drift rate')
+```
 
+```{r }
 
 ## And now we make the gam
+
+
 
 D3 <- makeTheGam(D2)
 
 
 
 
+
 plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
           ylab = 'Drift rate')
-lapply(D3, function(fo){points(fo$Date, fo$pred, type = 'l', col = 'firebrick', lwd = 7)})
+lapply(D3, function(fo){points(fo$Date, fo$pred, type = 'l', col = 'firebrick', lwd = 3)})
+
 
 
 ```
