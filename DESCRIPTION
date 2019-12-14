@@ -8,7 +8,7 @@ Authors@R: c(person("Fer", "Arce", email = "farcego@gmail.com", role = c("aut", 
 	   person("Mark", "Hindell", email = "mark.hindell@utas.edu.au", role = "ctb"),
 	   person("Simon", "Wotherspoon", email = "simon.wotherspoon@utas.edu.au", role = "aut")
 	   )
-Description: Package slimingDive contains a set of functions for detect and filter drift dives from elephant seal dive profiles summarized by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by the Australian Integrated Marine Observing System (IMOS).
+Description: Package slimingDive contains a set of functions for detect and filter drift dives from elephant seal dive profiles summarized by a broken-stick algorithm. These functions are prepared to work with the general format provided by SMRU tags. It has been developed with High-Resolution Time-Depth profiles and tested with Satellite transmitted  Profiles provided by the Australian Integrated Marine Observing System (IMOS).
 Maintainer: Fer Arce <farcego@gmail.com>
 Depends:
 	R (>= 3.3.0),
