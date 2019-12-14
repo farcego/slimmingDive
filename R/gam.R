@@ -1,11 +1,13 @@
-## library(slimmingDive)
-## source('R/linkFun.R')
-
-
-
-
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param Data 
+##' @return 
+##' @noRd
 daysTemp <- function(Data){
         Data$date <- Data$Date
+##         Data$fdoay <- as.numeric(difftime(Data$Date,min(Data$Date),  units='secs'))/86400
         Data$fday <- as.numeric(difftime(Data$Date,min(Data$Date),  units='secs'))/86400
         Data$nday <- floor(Data$fday)
         Data$ref <- as.character(Data$ref)
@@ -16,14 +18,28 @@ daysTemp <- function(Data){
 
 
 
-
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param test 
+##' @param date 
+##' @return 
+##' @noRd
 SingleDay <- function(test, date = 'date'){
     test$date <- substr(as.character(test[,date]), start = 1, stop = 10)
     test$date <- as.POSIXct(strptime(test[,date], format = '%Y-%m-%d'))
     return(test)
 }
 
-
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param test 
+##' @param days 
+##' @return 
+##' @noRd
 MakePeriods <- function(test, days = 5){
     test$periods <- 1
     ##if(nrow(test) < 10) next
@@ -37,7 +53,15 @@ MakePeriods <- function(test, days = 5){
     return(test)
 }
 
-
+##' Post-processing 
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param Data 
+##' @param days 
+##' @param zeta 
+##' @return 
+##' @noRd 
 PostKalProc <- function(Data, days = 10, zeta = 0.5){
     Data <- lapply(Data, function(fo) fo <- fo[fo$zetas > zeta, ])
     keep <- sapply(Data, nrow)
@@ -73,8 +97,15 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 
 ## function in progress
 
-
-MakeTheGam <- function(test, dates = NULL){
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param test 
+##' @param dates 
+##' @return 
+##' @Nord
+customGam <- function(test, dates = NULL){
     fit <- gam(rate ~ s(Date), data=test,
                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
     if (is.null(dates)){
@@ -99,11 +130,11 @@ MakeTheGam <- function(test, dates = NULL){
 ##' seal is drifting. This function may break the drifting trajectory
 ##' into sub-units on the basis of lack of Drift dives.
 ##' @title makeTheGam
-##' @param Data drifta
+##' @param Data drift
 ##' @param dates dates
 ##' @param zetas zetas
 ##' @return a list with predicted values
-##' @author Fer Arce
+##' @export
 makeTheGam <- function(Data, dates = NULL, zetas = .5){
     
     if('data.frame' %in% class(Data))
@@ -130,7 +161,7 @@ makeTheGam <- function(Data, dates = NULL, zetas = .5){
         test <- test[sapply(test, nrow) > minm]
         ## test$Date is the good date
         ## need to set up a new dates for test
-        Gamss <- lapply(test, MakeTheGam, dates = dates)
+        Gamss <- lapply(test, customGam, dates = dates)
         for (l in 1:length(Gamss)){
             ##Gamss[[l]]$ref <- foca          #
             ## Gamss[[l]]$date <- inicio +Gamss[[l]]$time*86400
