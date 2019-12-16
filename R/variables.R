@@ -7,6 +7,7 @@
 ##'     broken-stick algoritm.
 ##' @return the time when the maximi depth is reached. A \code{vector}
 ##'     of class code{numeric} and length one.
+##' @noRd
 maxTime <- function(x){
     data.depths <- x[c('D1','D2','D3','D4')]
     data.times <- x[c('T1','T2','T3','T4')]
@@ -139,7 +140,8 @@ avRatio <- function(x){
 
 
 
-## function for generating the residuals of a fitted linear model to the BSM points
+## function for generating the residuals of a fitted linear model to
+## the BSM points
 ##'
 ##' modRes generates the residuals of a linear model by fitting the
 ##' depth points (D1..D4) vs the time points (T1..T4). While the
@@ -150,10 +152,13 @@ avRatio <- function(x){
 ##' @param x a summarized dive
 ##' @param res  wich residual is requested \cr
 ##' \itemize{
-##' \item If {1,2,3,4} it will return the residual for the {1,2,3,4} inflection points
+##' \item If {1,2,3,4} it will return the residual for the {1,2,3,4}
+##' inflection points
 ##' \item {5} all residuals pasted into a string separated by dots
 ##' }
-##' @return A numeric value if a single residual is requested, or a character string if all are requested
+##' @return A numeric value if a single residual is requested, or a
+##' character string if all are requested
+##' @noRd
 modRes <- function(x,res=5){
     a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
