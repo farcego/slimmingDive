@@ -18,6 +18,7 @@
 ##'     }
 ##' @return a numeric value, either the drift rate or the drift
 ##'     segment, or a vector containing both.
+##' @export
 NDE <- function(d, extract='nde'){
     a.n <- as.numeric     # remaping as.numeric function
     nde <- NA             # drift estimate

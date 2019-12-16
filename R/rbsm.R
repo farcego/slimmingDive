@@ -16,9 +16,11 @@
 ##' @title Reverse Broken Stick Algorithm
 ##' @param dive A dive profile summarized by a Broken Stick Algorithm
 ##'     and transmitted via ARGOS (SMRU format)
-##' @param retrieve character determining what we want to have returned of: \cr
+##' @param retrieve character determining what we want to have
+##' returned of: \cr
 ##' \itemize{
-##' \item order: It returns the order of selection of the BSM inflection points
+##' \item order: It returns the order of selection of the BSM
+##' inflection points
 ##' \item minresid: It returns the smallest residual
 ##' \item both: it returns both
 ##' \item all: returns all four residuals and the order
@@ -27,9 +29,11 @@
 ##'     retrieve (see above). The returned values are stored in a
 ##'     vector. If more than one outcome is requested via both,
 ##'     minresid will be of class character
+##' @export
 RBSM <- function(dive,retrieve='order'){
     nd <- matrix(NA,ncol=6,nrow=6)
-    colnames(nd) <- c('depth','time','order','resid','tmp.resd','pred.depth')
+    colnames(nd) <- c('depth','time','order','resid','tmp.resd',
+                      'pred.depth')
     nd[,1] <-c(10,as.numeric(dive[c('D1','D2','D3','D4')]),10)
     nd[,2] <- c(0,as.numeric(dive[c('T1','T2','T3','T4','DIVE_DUR')]))
     ## first point and itsa residual
@@ -44,7 +48,8 @@ RBSM <- function(dive,retrieve='order'){
     } else {
         sd1 <- nd[c(1,sp[1]),]
         lmsd1 <- lm(sd1[,1]~sd1[,2])
-        nd[1:sp[1],6] <- lmsd1$coefficients[1] + lmsd1$coefficients[2]*nd[1:sp[1],2]
+        nd[1:sp[1],6] <- lmsd1$coefficients[1] +
+            lmsd1$coefficients[2]*nd[1:sp[1],2]
     }
     if (length(sp[1]:6) == 2) {
         nd[sp[1]:6,6] <- nd[sp[1]:6,1]
@@ -52,7 +57,8 @@ RBSM <- function(dive,retrieve='order'){
     } else {
         sd2 <- nd[c(sp[1],6), ]
         lmsd2 <- lm(sd2[,1]~sd2[,2])
-        nd[sp[1]:6,6] <- lmsd2$coefficients[1] + lmsd2$coefficients[2]*nd[sp[1]:6,2]
+        nd[sp[1]:6,6] <- lmsd2$coefficients[1] +
+            lmsd2$coefficients[2]*nd[sp[1]:6,2]
     }    
     nd[,5] <- round(abs(nd[,6] - nd[,1]),4)
     nd[which.max(nd[,5]),3] <- 2
@@ -66,7 +72,8 @@ RBSM <- function(dive,retrieve='order'){
     } else {
         sd1 <- nd[c(1,sp[1]),]
         lmsd1 <- lm(sd1[,1]~sd1[,2])
-        nd[1:sp[1],6] <- lmsd1$coefficients[1] + lmsd1$coefficients[2]*nd[1:sp[1],2]
+        nd[1:sp[1],6] <- lmsd1$coefficients[1] +
+            lmsd1$coefficients[2]*nd[1:sp[1],2]
     }
     if (length(sp[1]:sp[2]) == 2) {
         nd[sp[1]:sp[2],6] <- nd[sp[1]:sp[2],1]
@@ -74,7 +81,8 @@ RBSM <- function(dive,retrieve='order'){
     } else {
         sd2 <- nd[c(sp[1],sp[2]), ]
         lmsd2 <- lm(sd2[,1]~sd2[,2])
-        nd[sp[1]:sp[2],6] <- lmsd2$coefficients[1] + lmsd2$coefficients[2]*nd[sp[1]:sp[2],2]
+        nd[sp[1]:sp[2],6] <- lmsd2$coefficients[1] +
+            lmsd2$coefficients[2]*nd[sp[1]:sp[2],2]
     }
     if (length(sp[2]:6) == 2) {
         nd[sp[2]:6,6] <- nd[sp[2]:6,1]
@@ -82,7 +90,8 @@ RBSM <- function(dive,retrieve='order'){
     } else {
         sd2 <- nd[c(sp[2],6), ]
         lmsd2 <- lm(sd2[,1]~sd2[,2])
-        nd[sp[2]:6,6] <- lmsd2$coefficients[1] + lmsd2$coefficients[2]*nd[sp[2]:6,2]
+        nd[sp[2]:6,6] <- lmsd2$coefficients[1] +
+            lmsd2$coefficients[2]*nd[sp[2]:6,2]
     }
     nd[,5] <- round(abs(nd[,6] - nd[,1]),4)
     nd[which.max(nd[,5]),3] <- 3
@@ -91,7 +100,8 @@ RBSM <- function(dive,retrieve='order'){
     last <- which(is.na(nd[,3]))[2]
     sd1 <- nd[c(last-1,last+1),]
     lmsd1 <- lm(sd1[,1]~sd1[,2])
-    nd[last,6] <- lmsd1$coefficients[1] + lmsd1$coefficients[2]*nd[last,2]
+    nd[last,6] <- lmsd1$coefficients[1] +
+        lmsd1$coefficients[2]*nd[last,2]
     nd[last,3] <- 4
     nd[last,4] <- round(abs(nd[last,6] - nd[last,1]),4)   
     nd <- nd[-c(1,6),]

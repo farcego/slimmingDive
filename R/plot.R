@@ -10,6 +10,7 @@
 ##' @param alpha numeric, from 0 to 1. It sets the transparency of the
 ##'     color
 ##' @return it will add colout to the background of a plot
+##' @noRd
 BGC <- function(col = 'bisque', alpha = 1){
     rect(par('usr')[[1]],
          par('usr')[[3]],
@@ -32,9 +33,12 @@ BGC <- function(col = 'bisque', alpha = 1){
 ##' @param ... aditional arguments to be pasted to the generic plot
 ##'     function
 ##' @return a plot of the drift rate time series.
+##' @export
 plotDrift <- function(Data, ID = FALSE, ...){
-    plot(Data$Date, Data$NDE, col = 'black', panel.first = BGC(), ylim = c(-.45,.3),
-         bg = adjustcolor('cornflowerblue', .9), pch = 21, xlim = c(min(Data$Date), min(Data$Date) + 86400*320), ...)
+    plot(Data$Date, Data$NDE, col = 'black', panel.first = BGC(),
+         ylim = c(-.45,.3), bg = adjustcolor('cornflowerblue', .9),
+         xlim = c(min(Data$Date), min(Data$Date) + 86400*320),
+         pch = 21, ...)
     if (ID){
         text(245/2, .25, unique(Data$ref), cex = 2.5)
         mtext(c('-0.2', '0', '0.2'), line = .2, side = 2,

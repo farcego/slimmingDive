@@ -44,11 +44,12 @@ data(ele)
 
 These type of datasets tipically contain a large number of columns,
 innecesary to our purposes, so better to pre-process the data and get
-rid of them. This first step remove certain dives. first, it will
-remove dives shallower than 100 m depth and 300 s of duration. It will
-sort the data by date, remove repeated rows (if any) and those with
-have certain issues like more than one inflection point at the same
-time.
+rid of them. This first step remove certain dives. First, it will
+remove dives shallower than 100 m depth and 300 s of duration. These
+are a minority of dives and it should not have an impact on drift
+dives. It will sort the data by date (it should be already sorted),
+andremove repeated rows (if any) and those with have certain errors
+like more than one inflection point at the same time.
 
 ```{r }
 Data <- formatDives(ele)
@@ -58,7 +59,7 @@ dim(Data)
 
 Next step is to otain the order in which the inflection points were
 generated onboard the tag, and the residual of the last point, as the
-drifing segment and drift rate toguether with furter calculations
+drifing segment and drift rate toguether plus furter calculations
 depend on them.
 
 ```{r }
@@ -149,6 +150,9 @@ plotDrift(D2, xlab = 'foraging days',cex.lab = 1.5, cex = 2,
           ylab = 'Drift rate')
 lapply(D3, function(fo){points(fo$Date, fo$pred, type = 'l', col = 'firebrick', lwd = 3)})
 
+drift
 
+help('help')
 
+browseURL('drift')
 ```
