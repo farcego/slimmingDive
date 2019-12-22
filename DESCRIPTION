@@ -12,8 +12,7 @@ Description: Package slimingDive contains a set of functions for detect and filt
 Maintainer: Fer Arce <farcego@gmail.com>
 Depends:
 	R (>= 3.3.0),
-	gam
-Imports:
+	gam,
 	rjags
 License: GPL-3 + file LICENSE
 SystemRequirements: JAGS (>= 4.2.0)
