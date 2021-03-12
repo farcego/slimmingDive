@@ -1,6 +1,6 @@
 ##' Change the background of the plot
 ##'
-##' This function takes the 'actual' ranges of the plotting region (R
+##' This function takes the 'actual' range of the plotting region (R
 ##' adds 4% extra to the range of the variables) and draw a rectangle
 ##' with the desired color. This function is made to be called by
 ##' \code{panel.first} argument inside plot function.  It should take
@@ -9,7 +9,7 @@
 ##' @param col name of the color in any format supported by R.
 ##' @param alpha numeric, from 0 to 1. It sets the transparency of the
 ##'     color
-##' @return it will add colout to the background of a plot
+##' @return it will add colour to the background of a plot
 ##' @noRd
 BGC <- function(col = 'bisque', alpha = 1){
     rect(par('usr')[[1]],
@@ -25,12 +25,12 @@ BGC <- function(col = 'bisque', alpha = 1){
 ##' graphical parameters
 ##'
 ##' This function wraps some code to make nice looking plots for the
-##' vignette.
+##' vignette. I can also be used to visualize the output of slimmingDive.
 ##' @title plotDrift
 ##' @param Data a seal dataset in \code{data.frame} format
 ##' @param ID \code{logical}. If true it will print axis and the tag id
 ##'     on the plot
-##' @param ... aditional arguments to be pasted to the generic plot
+##' @param ... aditional arguments to be pasted to the generic \code{base::plot}
 ##'     function
 ##' @return a plot of the drift rate time series.
 ##' @export
