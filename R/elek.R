@@ -1,10 +1,10 @@
-##' Post-processed seal
+##' Post-processed seals
 ##'
 ##' The original seal dataset (ele) provided in slimmingDive after
 ##' being fully processed by slimmingDive (just before aplying the
 ##' postKalman function). This data set will save time for testing or
-##' experimenting by avoiding the use of the time consuming
-##' |code{kalman} function.
+##' experimenting with \code{slimmingDive} avoiding the use of the
+##' time consuming \code{kalman} function.
 ##' 
 ##' @format A list with 6 objects:
 ##' \describe{
