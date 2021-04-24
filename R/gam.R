@@ -104,7 +104,7 @@ PostKalProc <- function(Data, days = 10, zeta = 0.5){
 ##' @param test 
 ##' @param dates 
 ##' @return 
-##' @Nord
+##' @noRd
 customGam <- function(test, dates = NULL){
     fit <- gam(rate ~ s(Date), data=test,
                family=drift(M0=100,V0=90,a=1.2,link="dragp"))
@@ -128,11 +128,12 @@ customGam <- function(test, dates = NULL){
 ##' This function fit a gam with a custom link function. It allows to
 ##' get estimates of Drift rate at any given time, provided that the
 ##' seal is drifting. This function may break the drifting trajectory
-##' into sub-units on the basis of lack of Drift dives.
+##' into sub-units on the basis of lack of Drift dives, wich most of
+##' the time happens when a seal takes a mid-winter haul-out.
 ##' @title makeTheGam
-##' @param Data drift
-##' @param dates dates
-##' @param zetas zetas
+##' @param Data drift data from the postKalman function
+##' @param dates dates the time-stamps where the estimation of Drift rate is requested
+##' @param zetas zetas The criteria to select Drift dives.
 ##' @return a list with predicted values
 ##' @export
 makeTheGam <- function(Data, dates = NULL, zetas = .5){

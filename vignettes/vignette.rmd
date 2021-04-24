@@ -118,7 +118,7 @@ data(elek)
 ```
 
 ```{r }
-load('~/Dropbox/phdD/package/slimmingDive/data/elek.RData')
+##load('../data/elek.RData')
 D2 <- postKalman(elek)
 ## At this point, we need to set a zeta threshold (Z = probability of
 ## a given drift rate being in the drifting trajectory of the

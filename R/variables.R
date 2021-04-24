@@ -104,6 +104,7 @@ newVarsVect <- function(Data = Data, t = FALSE){
 ##' @title MdepthR
 ##' @param x a vector
 ##' @return a value
+##' @noRd
 mDepthR <- function(x){
     a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
@@ -120,7 +121,8 @@ mDepthR <- function(x){
 ##' @title Mid point ratio
 ##' @param x A summarized dive profile (summarized by the Broken Stick
 ##'     algorithm)
-##' @return a \code{vector} of class \code{numeric} of length 1. 
+##' @return a \code{vector} of class \code{numeric} of length 1.
+##' @noRd
 avRatio <- function(x){
     avratio=numeric()
     a.n <- as.numeric

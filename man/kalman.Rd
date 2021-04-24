@@ -4,8 +4,14 @@
 \alias{kalman}
 \title{Function for applying a Kalman filter to the drift dives}
 \usage{
-kalman(Data, update = 4e+05, n.iter = 10000, n.chains = 3,
-  n.adapt = 1000, parallel = FALSE)
+kalman(
+  Data,
+  update = 4e+05,
+  n.iter = 10000,
+  n.chains = 3,
+  n.adapt = 1000,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{Data}{An object of class 'data.frame' that needs to include
@@ -28,7 +34,8 @@ an object of class 'list' that includes: 1) the original
     object), the output etc...
 }
 \description{
-Function for running a kalman filter to a subset of potential drift dives.
+Function for running a kalman filter to a subset of potential
+drift dives.
 }
 \details{
 This functions is a wrap to a kalman filter implemented in jags

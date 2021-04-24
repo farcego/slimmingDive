@@ -7,9 +7,9 @@
 
 
 **slimmingDive** provides a suite of funtions to process dive profiles
-of southern elephant seals (*Mirounga leonina*), summarized by a
+of elephant seals (*Mirounga sp*), summarized by a
 broken-stick algorithm and transmitted through the Argos satellite
-system. It has been developed to detect drift dives and associated
+system. It has been developed to detect drift dives and their associated
 drift rates. Drift dives are a particular type of dives that contain a
 long, inactive phase in which the seals drift passively along the
 water colum. Due the specific characteristics of elephant seals dives,
@@ -35,10 +35,10 @@ directly from GitHub as it is not (yet) in CRAN
 
 ```R
 ## install.packages("remotes")
-## remotes::install_github("farcego/slimmingDive")
+remotes::install_github("farcego/slimmingDive")
 ```
 
-Alternatively, you can download this git repo to your machine and
+Alternatively, you can download this git repo to your local machine and
 build the package trough 
 
 $ R CMD build --resave-data slimmingDive
@@ -54,5 +54,7 @@ seals. Scientific Reports: 9, 8936. doi: 10.1038/s41598-019-44970-1
 
 ## Aknowledgements
 
-The data contained in the package is provided by the Australian
-Integrate Marine Observing System ([IMOS](http://imos.org.au/))
+The data contained in the package has been kindly provided by the
+Animal Tracking Facility of the Australian Integrate Marine Observing
+System ([IMOS](http://imos.org.au/)) and is freely available at the
+Australian Ocean Data Network ([AODN](https://portal.aodn.org.au/))

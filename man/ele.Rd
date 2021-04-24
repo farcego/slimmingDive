@@ -4,7 +4,8 @@
 \name{ele}
 \alias{ele}
 \title{elephant seal pre-processed dataset}
-\format{A data frame with 53940 rows and 10 variables:
+\format{
+A data frame with 53940 rows and 10 variables:
 \describe{
   \item{D1}{D1}
   \item{D2}{D2}
@@ -22,7 +23,8 @@
   \item{lon}{lon}
   \item{ref}{ref}
 ...
-}}
+}
+}
 \source{
 \url{http://www.imos.org.au}
 }

@@ -10,9 +10,11 @@ RBSM(dive, retrieve = "order")
 \item{dive}{A dive profile summarized by a Broken Stick Algorithm
 and transmitted via ARGOS (SMRU format)}
 
-\item{retrieve}{character determining what we want to have returned of: \cr
+\item{retrieve}{character determining what we want to have
+returned of: \cr
 \itemize{
-\item order: It returns the order of selection of the BSM inflection points
+\item order: It returns the order of selection of the BSM
+inflection points
 \item minresid: It returns the smallest residual
 \item both: it returns both
 \item all: returns all four residuals and the order

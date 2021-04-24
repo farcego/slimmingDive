@@ -17,7 +17,8 @@ an object of class \code{data.frame}
 Function for post-processing kalman objects
 }
 \details{
-This functions extrac the mus and zetas from the \code{kalman}
-output and place them into the \code{data.frame} used by the
-\code{kalman} function
+This functions extrac the \code{mus} (recalculated drift rate values) and
+\code{zetas} (the probability for a given dive to be inside the drifting
+trajectory) from the \code{kalman} output and place them into the
+\code{data.frame} used by the \code{kalman} function
 }

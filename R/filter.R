@@ -1,5 +1,5 @@
 ##' This function filters a pre-processed data.frame. Consult the
-##' paper for the specific criteria
+##' paper for the specific criteria used.
 ##'
 ##' This function removes all dives that does not match the criteria
 ##' proposed in Arce et al (2019) as characteristic of Drift dives.

@@ -8,7 +8,7 @@
 ##' to TRUE, it will run three chains, each one in a different core
 ##' @title Function for applying a Kalman filter to the drift dives
 ##' @param Data An object of class 'data.frame' that needs to include
-##'     at least date and drift rate
+##'     at least date (named \code{Date}) and drift rate (named \{NDE})
 ##' @param update Burn.in length.
 ##' @param n.iter posterior drawn length.
 ##' @param n.chains number of chains to be drawn.
@@ -138,7 +138,6 @@ postKalman <- function(Data){
                      kalman = list(Data[[1]][[3]],Data[[2]][[3]], Data[[3]][[3]]),
                      mns = Data[[1]][[4]], duration = Data[[1]][[5]], brun.in = Data[[1]][[6]])
     }
-    ## Data must be a list
     output <- Data[[1]]
     values <- rowMeans(Data[[4]])
     params <- length(values)
