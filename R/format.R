@@ -10,12 +10,13 @@
 ##' than 300 seconds.
 ##' @title formatDives
 ##' @param Data an object of class daata.frame
+##' @param min.dep minimum 'aximum depth for a given dive, acting as a threshold
 ##' @return a data.frame containing a subset of the variables needed
 ##'     to keep processing the data.frame
 ##' @examples
 ##' data(ele)
 ##' formatDives(ele)
-formatDives <- function(Data){
+formatDives <- function(Data, min.dep = 100){
     '%out%' <- Negate('%in%')
     ## New addition, it potentially may break code, 21/nov/2019
     names(Data) <- tolower(names(Data))
@@ -24,7 +25,7 @@ formatDives <- function(Data){
                      'dive_dur', 'max_dep', 'd1',
                      'd2', 'd3','d4','t1','t2','t3',
                      't4', 'lat','lon')]
-    Data <- Data[Data$dive_dur > 300 & Data$max_dep > 100, ]
+    Data <- Data[Data$dive_dur > 300 & Data$max_dep > min.dep, ]
     names(Data) <- c('ref', 'DE_DATE', 'SURF_DUR',
                      'DIVE_DUR', 'MAX_DEP', 'D1',
                      'D2', 'D3','D4','T1','T2','T3',
@@ -55,7 +56,7 @@ formatDives <- function(Data){
     Data$T3 <- (Data$t3*Data$DIVE_DUR) / 100
     Data$T4 <- (Data$t4*Data$DIVE_DUR) / 100
     Data <- Data[order(Data$ref,Data$Date), ]
-    Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > 100
+    Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > min.dep
                  & Data$T1 > 0, ]
     Data <- Data[Data$T1 < Data$T2, ]
     Data <- Data[Data$T2 < Data$T3, ]
