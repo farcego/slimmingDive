@@ -20,12 +20,13 @@ maxTime <- function(x){
 
 
 ##' Function for generating the variables required to apply the
-##' filtering process. This function has been tested with tables
+##' filtering process. This function has been tested with Data
 ##' extracted from the Integrated Marine Observing System (IMOS,
-##' Australia) freely available data, and it should work with any
-##' Sea-mammal Research Unit (SMRU, St. Andrews, Scotland) provided
-##' file. please contact the author if it does not work with your data
-##' to find a custom adaptation suitable for your data.
+##' Australia) freely available data on southern elephant seals, and
+##' it should work with any Sea-mammal Research Unit (SMRU,
+##' St. Andrews, Scotland) provided file with summarized dive
+##' information. Please contact the author if it does not work with
+##' your data to find a custom adaptation suitable for your data.
 ##'
 ##' Newly computed variables: \cr
 ##' \itemize{
@@ -106,9 +107,9 @@ newVarsVect <- function(Data = Data, t = FALSE){
 ##' @return a value
 ##' @noRd
 mDepthR <- function(x){
-    a.n <- as.numeric
+    ## a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
-    mdept <- mean(dd)/a.n(x['max.depth'])
+    mdept <- mean(dd)/as.numeric(x['max.depth'])
     return(mdept)
 }
 
