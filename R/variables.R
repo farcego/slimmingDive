@@ -5,7 +5,7 @@
 ##' @title maximum time
 ##' @param x a given dive containing the times and depths of the
 ##'     broken-stick algoritm.
-##' @return the time when the maximi depth is reached. A \code{vector}
+##' @return the time when the maximum depth is reached. A \code{vector}
 ##'     of class code{numeric} and length one.
 ##' @noRd
 maxTime <- function(x){
