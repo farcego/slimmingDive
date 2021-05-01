@@ -10,13 +10,14 @@
 ##' than 300 seconds.
 ##' @title formatDives
 ##' @param Data an object of class daata.frame
-##' @param min.dep minimum 'aximum depth for a given dive, acting as a threshold
+##' @param min.dur minimun duration of a dive to be considered as a potential drift dive (in seconds)
+##' @param min.dep minimum 'maximum depth for a given dive, acting as a threshold
 ##' @return a data.frame containing a subset of the variables needed
 ##'     to keep processing the data.frame
 ##' @examples
 ##' data(ele)
 ##' formatDives(ele)
-formatDives <- function(Data, min.dep = 100){
+formatDives <- function(Data, min.dur = 500, min.dep = 100){
     '%out%' <- Negate('%in%')
     ## New addition, it potentially may break code, 21/nov/2019
     names(Data) <- tolower(names(Data))
@@ -25,13 +26,13 @@ formatDives <- function(Data, min.dep = 100){
                      'dive_dur', 'max_dep', 'd1',
                      'd2', 'd3','d4','t1','t2','t3',
                      't4', 'lat','lon')]
-    Data <- Data[Data$dive_dur > 300 & Data$max_dep > min.dep, ]
+    Data <- Data[Data$dive_dur > min.dur & Data$max_dep > min.dep, ]
     names(Data) <- c('ref', 'DE_DATE', 'SURF_DUR',
                      'DIVE_DUR', 'MAX_DEP', 'D1',
                      'D2', 'D3','D4','T1','T2','T3',
                      'T4', 'lat','lon')
     ## end of the addition
-    Data$ref <- as.character(Data$ref)
+    Data$ref <- as.character(Data$ref) #keep for R versions lower than 4.* just in case
     ## new deletion, 21/nov/2019
     ## Data <- Data[,c("ref", "DE_DATE", "SURF_DUR", "DIVE_DUR","MAX_DEP","D1","D2",
     ##                 "D3", "D4","T1", "T2","T3","T4")]
@@ -56,8 +57,9 @@ formatDives <- function(Data, min.dep = 100){
     Data$T3 <- (Data$t3*Data$DIVE_DUR) / 100
     Data$T4 <- (Data$t4*Data$DIVE_DUR) / 100
     Data <- Data[order(Data$ref,Data$Date), ]
-    Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > min.dep
-                 & Data$T1 > 0, ]
+    ## Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > min.dep
+    ##              & Data$T1 > 0, ]
+    Data <- Data[Data$T1 > 0, ]
     Data <- Data[Data$T1 < Data$T2, ]
     Data <- Data[Data$T2 < Data$T3, ]
     Data <- Data[Data$T3 < Data$T4, ]
