@@ -9,9 +9,11 @@
 ##' duplicated dive and those not reaching 100 meter depth and shorter
 ##' than 300 seconds.
 ##' @title formatDives
-##' @param Data an object of class daata.frame
-##' @param min.dur minimun duration of a dive to be considered as a potential drift dive (in seconds)
-##' @param min.dep minimum 'maximum depth for a given dive, acting as a threshold
+##' @param Data an object of class data.frame
+##' @param min.dur minimun duration of a dive to be considered as a
+##'     potential drift dive (in seconds)
+##' @param min.dep minimum 'maximum depth for a given dive, acting as
+##'     a threshold
 ##' @return a data.frame containing a subset of the variables needed
 ##'     to keep processing the data.frame
 ##' @examples
