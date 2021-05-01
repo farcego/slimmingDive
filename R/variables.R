@@ -148,19 +148,17 @@ avRatio <- function(x){
 ##'
 ##' modRes generates the residuals of a linear model by fitting the
 ##' depth points (D1..D4) vs the time points (T1..T4). While the
-##' dimension may not be of importance, the sign of the residuals may
-##' be for some criteria. It only returns the residual values, not the
-##' full object of class \code{lm}.
+##' dimension may not be of importance, the sign of the residuals is
+##' be useful for some criteria. It will just returns the residual values,
+##' not the full object of class \code{lm}.
 ##' @title Least square residuals
 ##' @param x a summarized dive
-##' @param res  wich residual is requested \cr
-##' \itemize{
-##' \item If {1,2,3,4} it will return the residual for the {1,2,3,4}
-##' inflection points
-##' \item {5} all residuals pasted into a string separated by dots
-##' }
+##' @param res wich residual is requested \cr \itemize{ \item If
+##'     {1,2,3,4} it will return the residual for the {1,2,3,4}
+##'     inflection points \item {5} all residuals pasted into a string
+##'     separated by dots }
 ##' @return A numeric value if a single residual is requested, or a
-##' character string if all are requested
+##'     character string if all are requested
 ##' @noRd
 modRes <- function(x,res=5){
     a.n <- as.numeric
