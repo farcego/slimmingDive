@@ -4,7 +4,8 @@
 ##' tags. There are slight differences between datasets from SMRU
 ##' tags. Some variables may be lower or upper case in different data
 ##' sets. It is a subset containing only the variables tipically
-##' needed to process summarized dives in slimmingDive.
+##' needed to process summarized dives in slimmingDive. It contains
+##' diving information from seal ct78-450-12.
 ##'
 ##' @format A data frame with 6584 rows and 15 variables:
 ##' \describe{
