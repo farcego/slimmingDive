@@ -3,8 +3,8 @@
 ##'
 ##' This functions keeps the variables needed to apply the subsequents
 ##' procedures of this package.  It will make the Date of class
-##' \code{POSIXct} if supplied as a factor and will make the
-##' \code{ref} (id of the tag) of type character. It also sorts the
+##' \code{POSIXct} if supplied as \code{factor} or \code{character} and will make the
+##' \code{ref} (id of the tag) of type \code{character}. It also sorts the
 ##' rows by \code{ref} and by \code{Date}.  It also removes any
 ##' duplicated dive and those not reaching 100 meter depth and shorter
 ##' than 300 seconds.
@@ -34,13 +34,8 @@ formatDives <- function(Data, min.dur = 500, min.dep = 100){
                      'D2', 'D3','D4','T1','T2','T3',
                      'T4', 'lat','lon')
     ## end of the addition
-    Data$ref <- as.character(Data$ref) #keep for R versions lower than 4.* just in case
-    ## new deletion, 21/nov/2019
-    ## Data <- Data[,c("ref", "DE_DATE", "SURF_DUR", "DIVE_DUR","MAX_DEP","D1","D2",
-    ##                 "D3", "D4","T1", "T2","T3","T4")]
-    ## 
-    ## end of deletion
-    
+    Data$ref <- as.character(Data$ref) #kept for R versions lower than 4.* just in case
+
     if ('POSIXct' %out% class(Data$DE_DATE)){
         Data$Date <- as.POSIXct(strptime(as.character(Data$DE_DATE),
                                          format = '%d/%m/%y %H:%M:%S'))
@@ -59,8 +54,6 @@ formatDives <- function(Data, min.dur = 500, min.dep = 100){
     Data$T3 <- (Data$t3*Data$DIVE_DUR) / 100
     Data$T4 <- (Data$t4*Data$DIVE_DUR) / 100
     Data <- Data[order(Data$ref,Data$Date), ]
-    ## Data <- Data[Data$DIVE_DUR > 300 & Data$MAX_DEP > min.dep
-    ##              & Data$T1 > 0, ]
     Data <- Data[Data$T1 > 0, ]
     Data <- Data[Data$T1 < Data$T2, ]
     Data <- Data[Data$T2 < Data$T3, ]
