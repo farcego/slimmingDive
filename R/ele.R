@@ -6,7 +6,7 @@
 ##' sets. It is a subset containing only the variables tipically
 ##' needed to process summarized dives in slimmingDive.
 ##'
-##' @format A data frame with 53940 rows and 10 variables:
+##' @format A data frame with 6584 rows and 15 variables:
 ##' \describe{
 ##' 
 ##'   \item{ref}{ref}
