@@ -103,8 +103,8 @@ newVarsVect <- function(Data = Data, t = FALSE){
 ##' Internal function to calculate mDepthR. Shouldn't be called by the
 ##' end user
 ##' @title MdepthR
-##' @param x a vector
-##' @return a value
+##' @param x a summarized dive
+##' @return the computed value
 ##' @noRd
 mDepthR <- function(x){
     ## a.n <- as.numeric
@@ -149,8 +149,10 @@ avRatio <- function(x){
 ##' modRes generates the residuals of a linear model by fitting the
 ##' depth points (D1..D4) vs the time points (T1..T4). While the
 ##' dimension may not be of importance, the sign of the residuals is
-##' be useful for some criteria. It will just returns the residual values,
-##' not the full object of class \code{lm}.
+##' be useful for some criteria. It will just returns the residual
+##' values, not the full object of class \code{lm}. This residuals are
+##' of special interest to capture the degree of diving complexity not
+##' caugth by the BSM model.
 ##' @title Least square residuals
 ##' @param x a summarized dive
 ##' @param res wich residual is requested \cr \itemize{ \item If

@@ -132,6 +132,7 @@ updateKalman <- function(data,update=100000,n.iter=1000, recompile = FALSE){
 ##'     function Kalman (and or updateKalman)
 ##' @return an object of class \code{data.frame}
 postKalman <- function(Data){
+        requireNamespace('rjags')
     stopifnot('kalman' %in% class(Data))
     if (attr(Data, 'update.type') == 'kalman.parallel') {
         Data <- list(Data = Data[[1]][[1]], model = Data[[1]][[2]],
