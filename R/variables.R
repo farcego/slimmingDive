@@ -107,7 +107,7 @@ newVarsVect <- function(Data = Data, t = FALSE){
 ##' @return the computed value
 ##' @noRd
 mDepthR <- function(x){
-    ## a.n <- as.numeric
+    a.n <- as.numeric
     dd <- a.n(x[c('D1','D2','D3','D4')])
     mdept <- mean(dd)/as.numeric(x['max.depth'])
     return(mdept)
