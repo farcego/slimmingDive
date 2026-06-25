@@ -1,8 +1,59 @@
+##' Run the Kalman MCMC model for drift dives
+##'
+##' Fits the drift-dive state-space model originally implemented in JAGS using
+##' a Metropolis-Hastings/Gibbs MCMC sampler. The function estimates latent mass
+##' increments and classifies observations as drift or non-drift dives through
+##' a latent binary indicator.
+##'
+##' @param Data A \code{data.frame} containing at least \code{Date} and
+##'     \code{NDE}. \code{Date} must be coercible to numeric time and
+##'     \code{NDE} must be numeric.. The \{data.frame} must be sorted by Date.
+##' @param update Integer. Number of initial MCMC iterations discarded as
+##'     burn-in.
+##' @param n.iter Integer. Total number of MCMC iterations.
+##' @param n.chains Integer. Number of MCMC chains. Currently only a single
+##'     chain is implemented and this argument is retained for compatibility.
+##' @param n.adapt Integer. Length of the adaptation period. Currently retained
+##'     for compatibility but not used.
+##' @param parallel Logical. Retained for compatibility but not used.
+##' @param thinStep Integer. Thinning interval applied after burn-in.
+##'
+##' @return An object of class \code{kalman}, a list containing:
+##' \describe{
+##'   \item{\code{deltaSamples}}{Posterior samples of the latent mass increments.}
+##'   \item{\code{zSamples}}{Posterior samples of the latent drift-dive indicator.}
+##'   \item{\code{Data}}{The input data ordered by date, with an additional
+##'   \code{time} column.}
+##'   \item{\code{burnin}}{Number of burn-in iterations.}
+##'   \item{\code{n.iter}}{Total number of MCMC iterations.}
+##'   \item{\code{thin}}{Thinning interval.}
+##' }
+##'
+##' @details
+##' Historically this function has been referred to as a "Kalman" filter within
+##' the package. However, the underlying model is not a classical Kalman filter.
+##' Instead, it is a Bayesian nonlinear state-space model in which inference is
+##' performed using a Metropolis-Hastings/Gibbs MCMC sampler. The name
+##' \code{kalman()} is retained for backwards compatibility with previous
+##' versions of the package.
+##'
+##' The latent process is modelled as a random walk with time-dependent process
+##' variance. The observation model links latent mass increments to observed
+##' drift rates through a nonlinear function, while a latent binary variable
+##' assigns observations to either a high- or low-precision observation model.
+##'
+##' @seealso \code{\link{plotDrift}}
+##'
+##' @export
 kalman <- function(Data, update=4000, n.iter=5000, n.chains=1,
                    n.adapt=1000, parallel = FALSE, thinStep = 10){
 
-    ## Sort by date
-    Data <- Data[order(Data$Date), ]
+
+
+
+
+    
+    ## make time fully numeric
     Data$time <- (as.numeric(Data$Date) - as.numeric(min(Data$Date))) / 3600
     
     ## Constants
@@ -25,7 +76,76 @@ kalman <- function(Data, update=4000, n.iter=5000, n.chains=1,
     z <- rep(0, N)
     
     ## Helper --> sacar fuera de aqui, en su propia funcion, _i I, _prev P...
-    logLikelihood <- function(i, delta_i, delta_prev, delta_next, rate_obs, time, z_i){
+    
+    ## asi deberia empezar esta funcion... hay que sacar todos estos parameteros de algun modo, y que lo smetamos con un list parameters, a lo jags...
+    ## lLl <- function(i,
+    ##                           delta_i, #Di
+    ##                           delta_prev, #Dp
+    ##                           delta_next, # Dn
+    ##                           rate_obs, # Ro
+    ##                           time,
+    ##                           z_i, # Zi
+    ##                           m0,
+    ##                           v0,
+    ##                           V,
+    ##                           a,
+    ##                           tau0,
+    ##                           tau1,
+    ##                           taud)
+
+    
+    ##' Compute the log-likelihood contribution for a single latent state
+    ##'
+    ##' Computes the contribution of a single latent mass increment
+    ##' (\code{delta[i]}) to the posterior log-likelihood. The contribution
+    ##' consists of two components: (1) the random-walk process model linking
+    ##' consecutive latent states, and (2) the observation model linking the
+    ##' latent state to the observed drift rate.
+    ##'
+    ##' @param i Integer. Index of the current observation.
+    ##' @param delta_i Numeric. Proposed value of the latent mass increment
+    ##'     at observation \code{i}. {{seems more like the buoyancxy increment, not the massss, check elsewhere}}
+    ##' @param delta_prev Numeric. Latent mass increment at observation
+    ##'     \code{i - 1}.
+    ##' @param delta_next Numeric. Latent mass increment at observation
+    ##'     \code{i + 1}.
+    ##' @param rate_obs Numeric. Observed drift rate for observation
+    ##'     \code{i}.
+    ##' @param time Numeric vector giving the observation times (hours since
+    ##'     the first observation).
+    ##' @param z_i Integer (0 or 1). Latent indicator specifying whether the
+    ##'     observation belongs to the high-precision (\code{1}) or
+    ##'     low-precision (\code{0}) observation model.
+    ##'
+    ##' @details
+    ##' The process model assumes that the latent mass increments follow a
+    ##' Gaussian random walk whose precision depends on the elapsed time
+    ##' between consecutive observations. The observation model computes the
+    ##' expected drift rate from the current latent state through the
+    ##' nonlinear buoyancy model
+    ##'
+    ##' \deqn{
+    ##' \rho = \frac{m_0 + \delta}{v_0 + V\delta}
+    ##' }
+    ##'
+    ##' and
+    ##'
+    ##' \deqn{
+    ##' \mu = a\,s\,\sqrt{|\rho - 1|}
+    ##' }
+    ##'
+    ##' where \eqn{s} is the sign of \eqn{\rho - 1}. The observation variance
+    ##' depends on the latent state indicator \code{z_i}.
+    ##'
+    ##' This function returns only the log-likelihood contribution associated
+    ##' with the current latent state and is intended for use within the
+    ##' Metropolis-Hastings update of the Kalman MCMC sampler.
+    ##'
+    ##' @return A numeric scalar giving the log-likelihood contribution of the
+    ##' current latent state.
+    ##'
+    ##' @keywords internal
+    lLl <- function(i, delta_i, delta_prev, delta_next, rate_obs, time, z_i){
         logp_delta <- 0
         if (i > 1) {
             dt_prev <- time[i] - time[i-1]
@@ -52,8 +172,8 @@ kalman <- function(Data, update=4000, n.iter=5000, n.chains=1,
             proposal <- delta_current + rnorm(1, 0, 0.1)
             delta_prev <- if (i > 1) delta[i-1] else 0
             delta_next <- if (i < N) delta[i+1] else 0
-            logLik_current <- logLikelihood(i, delta_current, delta_prev, delta_next, Data$NDE[i], Data$time, z[i])
-            logLik_proposal <- logLikelihood(i, proposal, delta_prev, delta_next, Data$NDE[i], Data$time, z[i])
+            logLik_current <- lLl(i, delta_current, delta_prev, delta_next, Data$NDE[i], Data$time, z[i])
+            logLik_proposal <- lLl(i, proposal, delta_prev, delta_next, Data$NDE[i], Data$time, z[i])
             log_alpha <- logLik_proposal - logLik_current
             if (log(runif(1)) < log_alpha){
                 delta[i] <- proposal

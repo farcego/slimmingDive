@@ -19,7 +19,7 @@
 ##'     dataset (plus some remaping of variables), the model (a jags
 ##'     object), the output etc...
 ##' @export
-kalman <- function(Data, update=400000, n.iter=10000, n.chains=3,
+kalmanJags <- function(Data, update=400000, n.iter=10000, n.chains=3,
                    n.adapt=1000, parallel = FALSE){
     if (parallel)
         return(parallelKalman(Data))
