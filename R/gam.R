@@ -16,7 +16,7 @@ daysTemp <- function(Data){
 
 
 
-
+## I think I can safely remove this function
 
 ##' .. content for \description{} (no empty lines) ..
 ##'
