@@ -1,7 +1,7 @@
 # slimmingDive
 [![DOI](https://zenodo.org/badge/190671173.svg)](https://zenodo.org/badge/latestdoi/190671173)
 
-# being rebuilt in a devel branch
+# being revamped in a devel branch
 
 ![example](https://github.com/farcego/slimmingDive/blob/master/inst/readme.gif)
 
