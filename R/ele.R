@@ -8,7 +8,7 @@
 ##' in slimmingDive. Dive information belongs to the seal instrumented
 ##' with ct78-450-12 tag.
 ##'
-##' @format An object of class `data.frame` with 6584 rows and 15 variables:
+##' @format An object of class \code{data.frame} with 6584 rows and 15 variables:
 ##' \describe{
 ##' 
 ##'   \item{ref}{seal-tag ID code, in this example ct78-450-12}
