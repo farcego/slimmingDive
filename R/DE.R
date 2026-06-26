@@ -20,93 +20,93 @@
 ##'     segment, or a vector containing both.
 ##' @export
 DE <- function(d, extract='de'){
-    a.n <- as.numeric     # remaping as.numeric function
+    ##a.n <- as.numeric     # remaping as.numeric function
     de <- NA             # drift estimate
     ds <- 0               # drifting segment
 
-    f <- (a.n(d["D2"]) - a.n(d["D1"]))/(a.n(d["T2"]) - a.n(d["T1"]))
+    f <- (d["D2"] - d["D1"])/(d["T2"] - d["T1"])
     f <- ifelse(is.finite(f),f,0)
-    s <- (a.n(d["D3"]) - a.n(d["D2"]))/(a.n(d["T3"]) - a.n(d["T2"]))
+    s <- (d["D3"] - d["D2"])/(d["T3"] - d["T2"])
     s <- ifelse(is.finite(s),s,0)
-    t <- (a.n(d["D4"]) - a.n(d["D3"]))/(a.n(d["T4"]) - a.n(d["T3"]))
+    t <- (d["D4"] - d["D3"])/(d["T4"] - d["T3"])
     t <- ifelse(is.finite(t),t,0)
     
-    if(d['order']=='2.1.3.4' & a.n(d['mdepthbias']) < 0 ) { # pos
+    if(d['order']=='2.1.3.4' & d['mdepthbias'] < 0 ) { # pos
         de <- s
         ds <- 2
-    } else if (d['order']=='2.1.3.4' & a.n(d['mdepthbias']) > 0 ) { # neg
-        de <- f
-        ds=1
-    } else if (d['order']=='2.1.4.3' & a.n(d['propseg1']) <= 25 &
-               1.1* a.n(d['propseg2']) >= a.n(d['propseg3'])) { # pos
-        de <- s
-        ds <- 2
-    } else if (d['order']=='2.1.4.3' & a.n(d['propseg1']) <= 25 &
-               1.1 * a.n(d['propseg2']) < a.n(d['propseg3'])) { # pos
-        de <- t
-        ds <- 3
-    } else if (d['order']=='2.1.4.3' & a.n(d['propseg1']) > 25) { # neg
+    } else if (d['order']=='2.1.3.4' & d['mdepthbias'] > 0 ) { # neg
         de <- f
         ds <- 1
-    } else if (d['order']=='2.4.1.3' & a.n(d['mdepthbias']) < 0 &
-               a.n(d['propseg1']) > a.n(d['propseg3'])) {
-        de <- f
-        ds <- 1
-    } else if (d['order']=='2.4.1.3' & a.n(d['mdepthbias']) < 0 &
-               a.n(d['propseg1']) < a.n(d['propseg3'])) {
+    } else if (d['order']=='2.1.4.3' & d['propseg1'] <= 25 &
+               1.1* d['propseg2'] >= d['propseg3']) { # pos
+        de <- s
+        ds <- 2
+    } else if (d['order']=='2.1.4.3' & d['propseg1'] <= 25 &
+               1.1 * d['propseg2'] < d['propseg3']) { # pos
         de <- t
         ds <- 3
-    } else if (d['order']=='2.4.1.3' & a.n(d['mdepthbias']) > 0  &
-               a.n(d['propseg1']) > a.n(d['propseg2'])) {
+    } else if (d['order']=='2.1.4.3' & d['propseg1'] > 25) { # neg
         de <- f
         ds <- 1
-    } else if (d['order']=='2.4.1.3' & a.n(d['mdepthbias']) > 0 &
-               a.n(d['propseg1']) <= a.n(d['propseg2'])) {
-        de <- s
-        ds <- 2
-    } else if (d['order']== '3.1.2.4' & a.n(d['avratio']) > 0) {
-        de <- s
-        ds <- 2
-    } else if (d['order']=='3.1.2.4' & a.n(d['avratio']) < 0) {
+    } else if (d['order']=='2.4.1.3' & d['mdepthbias'] < 0 &
+               d['propseg1'] > d['propseg3']) {
         de <- f
         ds <- 1
-    } else if (d['order']=='3.1.4.2' & a.n(d['propseg1']) < 25 &
-               a.n(s) < 0 & a.n(t) > 0) {
-        de <- s
-        ds <- 2
-    } else if (d['order']=='3.1.4.2' & a.n(d['propseg1']) < 25 &
-               a.n(s) > 0 & a.n(t) < 0) {
+    } else if (d['order']=='2.4.1.3' & d['mdepthbias'] < 0 &
+               d['propseg1'] < d['propseg3']) {
         de <- t
         ds <- 3
-    } else if (d['order']=='3.1.4.2' & a.n(d['propseg1']) < 25 &
-               a.n(s) < 0 & a.n(t) < 0 & a.n(d['hp2']) > a.n(d['hp3'])) {
+    } else if (d['order']=='2.4.1.3' & d['mdepthbias'] > 0  &
+               d['propseg1'] > d['propseg2']) {
+        de <- f
+        ds <- 1
+    } else if (d['order']=='2.4.1.3' & d['mdepthbias'] > 0 &
+               d['propseg1'] <= d['propseg2']) {
         de <- s
         ds <- 2
-    } else if (d['order']=='3.1.4.2' & a.n(d['propseg1']) < 25 &
-               a.n(s) < 0 & a.n(t) < 0 & a.n(d['hp2']) < a.n(d['hp3'])) {
+    } else if (d['order']== '3.1.2.4' & d['avratio'] > 0) {
+        de <- s
+        ds <- 2
+    } else if (d['order']=='3.1.2.4' & d['avratio'] < 0) {
+        de <- f
+        ds <- 1
+    } else if (d['order']=='3.1.4.2' & d['propseg1'] < 25 &
+               s < 0 & t > 0) {
+        de <- s
+        ds <- 2
+    } else if (d['order']=='3.1.4.2' & d['propseg1'] < 25 &
+               s > 0 & t < 0) {
         de <- t
         ds <- 3
-    } else if (d['order']=='3.1.4.2' & a.n(d['propseg1']) > 25) {
+    } else if (d['order']=='3.1.4.2' & d['propseg1'] < 25 &
+               s < 0 & t < 0 & d['hp2'] > d['hp3']) {
+        de <- s
+        ds <- 2
+    } else if (d['order']=='3.1.4.2' & d['propseg1'] < 25 &
+               s < 0 & t < 0 & d['hp2'] < d['hp3']) {
+        de <- t
+        ds <- 3
+    } else if (d['order']=='3.1.4.2' & d['propseg1'] > 25) {
         de <- f
         ds <- 1
     } else if (d['order']=='3.2.1.4') {
         de <- s
         ds <- 2
-    } else if (d['order']=='3.4.1.2' & a.n(d['mdepthbias']) < 0 ) {
+    } else if (d['order']=='3.4.1.2' & d['mdepthbias'] < 0 ) {
         de <- t
         ds <- 3
-    } else if (d['order']=='3.4.1.2' & a.n(d['mdepthbias']) > 0 &
-               a.n(d['propseg1']) > a.n(d['propseg2'])) {
+    } else if (d['order']=='3.4.1.2' & d['mdepthbias'] > 0 &
+               d['propseg1'] > d['propseg2']) {
         de <- f
         ds <- 1
-    } else if (d['order']=='3.4.1.2' & a.n(d['mdepthbias']) > 0 &
-               a.n(d['propseg1']) < a.n(d['propseg2'])) {
+    } else if (d['order']=='3.4.1.2' & d['mdepthbias'] > 0 &
+               d['propseg1'] < d['propseg2']) {
         de <- s
         ds <- 2
-    } else if (d['order']=='4.2.1.3' & a.n(d['mdepthbias']) < 0) {
+    } else if (d['order']=='4.2.1.3' & d['mdepthbias'] < 0) {
         de <- t
         ds <- 3
-    } else if (d['order']=='4.2.1.3' & a.n(d['mdepthbias']) >= 0) {
+    } else if (d['order']=='4.2.1.3' & d['mdepthbias'] >= 0) {
         de <- s
         ds <- 2
     }
