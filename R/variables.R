@@ -1,23 +1,26 @@
-##' Get the time-stamp at maximum depth
+##' Time at maximum depth
 ##'
-##' Get the time at which the maximum depth of a given dive is
-##' reached.
-##' @title maximum time/depth point
-##' @param x a dive row containing the times and depths of the
-##'     broken-stick algoritm.
-##' @return the time when the maximum depth is reached. A \code{vector}
-##'     of class code{numeric} and length one.
+##' Returns the time corresponding to the deepest point of a dive, based
+##' on its broken-stick representation.
+##'
+##' @param x A single-row object (typically a \code{data.frame} or named
+##'     vector) containing the depth variables \code{D1}--\code{D4} and
+##'     their corresponding times \code{T1}--\code{T4}.
+##'
+##' @return A numeric scalar giving the time (in the same units as
+##'     \code{T1}--\code{T4}) at which the maximum depth is reached. If
+##'     several depths are tied for the maximum, the first is returned.
+##'
 ##' @noRd
-maxTime <- function(x){
-    data.depths <- x[c('D1','D2','D3','D4')]
-    data.times <- x[c('T1','T2','T3','T4')]
-    l <- which.max(data.depths)
-    l <- as.numeric(l)
-    maxi.time <- as.numeric(data.times[l])
-    return(maxi.time)
+maxTime <- function(x) {
+    depths <- unlist(x[c("D1", "D2", "D3", "D4")], use.names = FALSE)
+    times  <- unlist(x[c("T1", "T2", "T3", "T4")], use.names = FALSE)
+    
+    times[which.max(depths)]
 }
 
-
+## There is potential to generalize to any number of points (Brocken stick with more than 4 inflection points)
+## maxTime <- function(x, depths = paste0("D", 1:4), times = paste0("T", 1:4))
 
 ##' Function for generating the variables required to apply the
 ##' filtering process. This function has been tested with Data
@@ -89,6 +92,10 @@ newVarsVect <- function(Data = Data, t = FALSE){
     Data$propseg2 <- Data$t3 - Data$t2
     Data$propseg3 <- Data$t4 - Data$t3
     Data$mrratio <- as.numeric(Data$minresid) / as.numeric(Data$max.depth)
+    ## any line commented would get mdepthr1 directly
+    ## Data$mdepthr <- rowMeans(depths) / Data$max.depth
+    ## or
+    ## Data$mdepthr <- rowMeans(Data[c("D1", "D2", "D3", "D4")]) / Data$max.depth
     Data$mdepthr <- mean(c(Data$D1,Data$D2,Data$D3,Data$D4))/Data$max.depth
     Data$mdepthr1 <- apply(Data,1,mDepthR)
     Data$mdepthbias <- (Data$max.time - (Data$DIVE_DUR/2)) / Data$DIVE_DUR
@@ -156,27 +163,20 @@ avRatio <- function(x){
 ##' @title Least square residuals
 ##' @param x a summarized dive
 ##' @param res wich residual is requested \cr \itemize{ \item If
-##'     {1,2,3,4} it will return the residual for the {1,2,3,4}
-##'     inflection points \item {5} all residuals pasted into a string
-##'     separated by dots }
+##'     {i} it will return the residual for the {i}
+##'     inflection point \item {i>inflection points} all residuals pasted into a string
+##'     separated by dash }
 ##' @return A numeric value if a single residual is requested, or a
 ##'     character string if all are requested
 ##' @noRd
 modRes <- function(x,res=5){
-    a.n <- as.numeric
-    dd <- a.n(x[c('D1','D2','D3','D4')])
-    dt <- a.n(x[c('T1','T2','T3','T4')])
-    tmp.mod <- lm(dd~dt)
-    tmp.res <- tmp.mod$residuals
-    if (res == 1){
-        return(a.n(tmp.mod$residual[1]))
-    } else if (res == 2){
-        return(a.n(tmp.mod$residual[2]))
-    } else if (res == 3){
-        return(a.n(tmp.mod$residual[3]))
-    } else if (res == 4){
-        return(a.n(tmp.mod$residual[4]))
-    } else if (res == 5){
-        paste(a.n(tmp.mod$residuals),collapse='.')
+    dd <- x[c('D1','D2','D3','D4')]
+    dt <- x[c('T1','T2','T3','T4')]
+    residuals <- residuals(lm(dd~dt))
+    if (res > length(dd)){
+        return(paste(residuals,collapse='-'))
+    } else {
+        return(residuals[res])
     }
 }
+
