@@ -33,8 +33,7 @@ formatDives <- function(Data, min.dur = 500, min.dep = 100){
                      'DIVE_DUR', 'MAX_DEP', 'D1',
                      'D2', 'D3','D4','T1','T2','T3',
                      'T4', 'lat','lon')
-    ## end of the addition
-    Data$ref <- as.character(Data$ref) #kept for R versions lower than 4.* just in case
+
     if ('POSIXct' %out% class(Data$DE_DATE)){
         Data$Date <- as.POSIXct(strptime(as.character(Data$DE_DATE),
                                          format = '%d/%m/%y %H:%M:%S'))
