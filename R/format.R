@@ -23,7 +23,6 @@ formatDives <- function(Data, min.dur = 500, min.dep = 100){
     '%out%' <- Negate('%in%')
     ## New addition, it potentially may break code, 21/nov/2019
     names(Data) <- tolower(names(Data))
-    Data$ref <- as.character(Data$ref)
     Data <- Data[, c('ref', 'de_date', 'surf_dur',
                      'dive_dur', 'max_dep', 'd1',
                      'd2', 'd3','d4','t1','t2','t3',
@@ -35,7 +34,7 @@ formatDives <- function(Data, min.dur = 500, min.dep = 100){
                      'T4', 'lat','lon')
 
     if ('POSIXct' %out% class(Data$DE_DATE)){
-        Data$Date <- as.POSIXct(strptime(as.character(Data$DE_DATE),
+        Data$Date <- as.POSIXct(strptime(Data$DE_DATE,
                                          format = '%d/%m/%y %H:%M:%S'))
     } else {
         Data$Date <- Data$DE_DATE
